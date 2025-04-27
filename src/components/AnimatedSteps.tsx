@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const steps = [
   "Completează un scurt formular cu povestea ta",
@@ -10,7 +10,15 @@ const steps = [
 ];
 
 const AnimatedSteps = () => {
-  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((current) => (current + 1) % steps.length);
+    }, 3000); // Change active step every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -21,34 +29,30 @@ const AnimatedSteps = () => {
           animate={{ 
             opacity: 1, 
             y: 0,
-            scale: hoveredStep === index ? 1.05 : 1,
-            boxShadow: hoveredStep === index ? "0 20px 25px -5px rgba(138, 92, 255, 0.15)" : "none"
+            scale: activeStep === index ? 1.05 : 1,
+            boxShadow: activeStep === index ? "0 20px 25px -5px rgba(138, 92, 255, 0.15)" : "none"
           }}
           transition={{
-            duration: 0.3,
+            duration: 0.5,
             delay: index * 0.2,
             type: "spring",
             stiffness: 200
           }}
-          whileHover={{ y: -10 }}
-          onHoverStart={() => setHoveredStep(index)}
-          onHoverEnd={() => setHoveredStep(null)}
-          className="glass-card p-6 text-center cursor-pointer relative overflow-hidden group"
+          className="glass-card p-6 text-center relative overflow-hidden"
         >
           <motion.div 
             className="absolute inset-0 bg-primary/5 transform origin-left"
-            initial={{ scaleX: 0 }}
             animate={{ 
-              scaleX: hoveredStep === index ? 1 : 0 
+              scaleX: activeStep === index ? 1 : 0 
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
           />
           <div className="relative z-10">
             <motion.div 
               className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
               animate={{ 
-                scale: hoveredStep === index ? 1.1 : 1,
-                backgroundColor: hoveredStep === index ? "rgba(138, 92, 255, 0.2)" : "rgba(138, 92, 255, 0.1)"
+                scale: activeStep === index ? 1.1 : 1,
+                backgroundColor: activeStep === index ? "rgba(138, 92, 255, 0.2)" : "rgba(138, 92, 255, 0.1)"
               }}
             >
               <span className="font-bold text-orange-500">{index + 1}</span>
@@ -56,7 +60,7 @@ const AnimatedSteps = () => {
             <motion.p 
               className="text-dark-text-muted"
               animate={{ 
-                color: hoveredStep === index ? "#F0F6FC" : "#8B949E"
+                color: activeStep === index ? "#F0F6FC" : "#8B949E"
               }}
             >
               {step}
@@ -69,3 +73,4 @@ const AnimatedSteps = () => {
 };
 
 export default AnimatedSteps;
+

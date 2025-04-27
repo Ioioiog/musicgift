@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { FileText, Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
 const Footer = () => {
-  return <footer className="bg-dark-card border-t border-dark-border/30">
-      <div className="container mx-auto py-12 px-4 bg-slate-950">
+  return <footer className="bg-dark-card border-t border-dark-border/30 bg-zinc-800">
+      <div className="container mx-auto py-12 px-4 bg-zinc-800">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
             <h3 className="font-mono text-xl font-bold mb-4 text-dark-text">MusicGift</h3>

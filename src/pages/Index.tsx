@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -7,45 +6,67 @@ import MusicPlayer from "@/components/MusicPlayer";
 import TrackCard from "@/components/TrackCard";
 
 // Sample tracks data
-const demoTracks = [
-  { id: 1, title: "Memories of Us", artist: "MusicGift Studio", duration: 185 },
-  { id: 2, title: "Forever Together", artist: "MusicGift Studio", duration: 210 },
-  { id: 3, title: "Our Journey", artist: "MusicGift Studio", duration: 195 },
-];
+const demoTracks = [{
+  id: 1,
+  title: "Memories of Us",
+  artist: "MusicGift Studio",
+  duration: 185
+}, {
+  id: 2,
+  title: "Forever Together",
+  artist: "MusicGift Studio",
+  duration: 210
+}, {
+  id: 3,
+  title: "Our Journey",
+  artist: "MusicGift Studio",
+  duration: 195
+}];
 
 // Sample featured releases
-const featuredReleases = [
-  { id: 101, title: "Love Story", artist: "Alex & Maria" },
-  { id: 102, title: "Anniversary Waltz", artist: "Andrei & Elena" },
-  { id: 103, title: "First Sight", artist: "Mihai & Ana" },
-  { id: 104, title: "Wedding Dance", artist: "Tudor & Ioana" },
-  { id: 105, title: "Proposal Theme", artist: "Victor & Diana" },
-  { id: 106, title: "Our Family", artist: "Gabriel & Cristina" },
-];
-
+const featuredReleases = [{
+  id: 101,
+  title: "Love Story",
+  artist: "Alex & Maria"
+}, {
+  id: 102,
+  title: "Anniversary Waltz",
+  artist: "Andrei & Elena"
+}, {
+  id: 103,
+  title: "First Sight",
+  artist: "Mihai & Ana"
+}, {
+  id: 104,
+  title: "Wedding Dance",
+  artist: "Tudor & Ioana"
+}, {
+  id: 105,
+  title: "Proposal Theme",
+  artist: "Victor & Diana"
+}, {
+  id: 106,
+  title: "Our Family",
+  artist: "Gabriel & Cristina"
+}];
 const Index = () => {
   const navigate = useNavigate();
   const [currentTrack, setCurrentTrack] = useState<number | null>(null);
-
   const handleOrderClick = () => {
     navigate("/comanda");
   };
-
   const handlePlayTrack = (id: number) => {
     console.log(`Playing track ${id}`);
     setCurrentTrack(id);
     // In a real implementation, this would trigger the music player
   };
-
   const handleScrollDown = () => {
     window.scrollTo({
       top: window.innerHeight,
       behavior: 'smooth'
     });
   };
-
-  return (
-    <div className="min-h-screen bg-dark-bg text-dark-text">
+  return <div className="min-h-screen bg-dark-bg text-dark-text">
       {/* Hero Section with minimalist dot-matrix design */}
       <section className="min-h-screen px-4 flex flex-col justify-center relative overflow-hidden pt-16">
         <div className="container max-w-4xl mx-auto relative z-10">
@@ -62,21 +83,12 @@ const Index = () => {
           </p>
           
           <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow"
-              onClick={handleOrderClick}
-            >
+            <Button size="lg" onClick={handleOrderClick} className="text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow bg-violet-950 hover:bg-violet-800">
               Comandă Melodia Ta
               <ArrowRight className="ml-2" size={18} />
             </Button>
             
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border border-dark-border/30 bg-transparent text-dark-text hover:bg-dark-card px-10 py-6 text-lg rounded-full animate-fade-in delay-300"
-              onClick={handleScrollDown}
-            >
+            <Button variant="outline" size="lg" onClick={handleScrollDown} className="border border-dark-border/30 text-dark-text hover:bg-dark-card px-10 py-6 text-lg rounded-full animate-fade-in delay-300 bg-zinc-500 hover:bg-zinc-400">
               Descoperă
               <ChevronDown className="ml-2" size={18} />
             </Button>
@@ -84,7 +96,7 @@ const Index = () => {
         </div>
         
         {/* Background grid effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20 bg-blue-900"></div>
         
         {/* Gradient overlay */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-bg to-transparent"></div>
@@ -99,11 +111,7 @@ const Index = () => {
               <p className="text-dark-text-muted">Exemple de creații muzicale MusicGift</p>
             </div>
             
-            <Button 
-              variant="ghost" 
-              className="mt-4 md:mt-0 text-primary hover:text-primary/80"
-              onClick={handleOrderClick}
-            >
+            <Button variant="ghost" className="mt-4 md:mt-0 text-primary hover:text-primary/80" onClick={handleOrderClick}>
               Creează propria melodie
               <ArrowRight className="ml-2" size={16} />
             </Button>
@@ -114,15 +122,7 @@ const Index = () => {
           <h2 className="font-mono text-2xl font-bold mb-8 tracking-tight dot-matrix">Creații Recente</h2>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {featuredReleases.map(track => (
-              <TrackCard 
-                key={track.id}
-                id={track.id}
-                title={track.title}
-                artist={track.artist}
-                onPlay={() => handlePlayTrack(track.id)}
-              />
-            ))}
+            {featuredReleases.map(track => <TrackCard key={track.id} id={track.id} title={track.title} artist={track.artist} onPlay={() => handlePlayTrack(track.id)} />)}
           </div>
         </div>
       </section>
@@ -134,19 +134,12 @@ const Index = () => {
             Cum funcționează MusicGift?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              "Completează un scurt formular cu povestea ta",
-              "Alege pachetul potrivit pentru tine",
-              "Echipa MusicGift compune și înregistrează melodia ta",
-              "Primești melodia ta unică în doar câteva zile!"
-            ].map((step, index) => (
-              <div key={index} className="glass-card p-6 text-center">
+            {["Completează un scurt formular cu povestea ta", "Alege pachetul potrivit pentru tine", "Echipa MusicGift compune și înregistrează melodia ta", "Primești melodia ta unică în doar câteva zile!"].map((step, index) => <div key={index} className="glass-card p-6 text-center">
                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-primary font-bold">{index + 1}</span>
                 </div>
                 <p className="text-dark-text-muted">{step}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -158,25 +151,19 @@ const Index = () => {
             Ce spun cei care au ales MusicGift
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "Cadoul perfect! Soția mea a plâns de emoție când a ascultat melodia.",
-                author: "Andrei, București"
-              },
-              {
-                quote: "Am primit exact ceea ce mi-am dorit. Profesionalism și suflet în fiecare notă.",
-                author: "Laura, Cluj"
-              },
-              {
-                quote: "O experiență magică. Recomand din toată inima!",
-                author: "Robert, Constanța"
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="glass-card p-8 text-center">
+            {[{
+            quote: "Cadoul perfect! Soția mea a plâns de emoție când a ascultat melodia.",
+            author: "Andrei, București"
+          }, {
+            quote: "Am primit exact ceea ce mi-am dorit. Profesionalism și suflet în fiecare notă.",
+            author: "Laura, Cluj"
+          }, {
+            quote: "O experiență magică. Recomand din toată inima!",
+            author: "Robert, Constanța"
+          }].map((testimonial, index) => <div key={index} className="glass-card p-8 text-center">
                 <p className="italic mb-4 text-dark-text-muted">{testimonial.quote}</p>
                 <p className="font-semibold text-primary">— {testimonial.author}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -187,18 +174,12 @@ const Index = () => {
           <h2 className="font-mono text-4xl md:text-5xl font-bold mb-6 tracking-tight dot-matrix">
             Găsește-ți povestea în muzică
           </h2>
-          <Button 
-            size="lg" 
-            className="mt-4 bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-glow"
-            onClick={handleOrderClick}
-          >
+          <Button size="lg" className="mt-4 bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-glow" onClick={handleOrderClick}>
             Comandă Melodia Ta Acum
             <ArrowRight className="ml-2" size={18} />
           </Button>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

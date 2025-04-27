@@ -1,35 +1,21 @@
-
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
-
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const handleOrderClick = () => {
     navigate("/comanda");
   };
-
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-
-  return (
-    <header className="fixed top-0 z-40 w-full bg-dark-bg/80 backdrop-blur-sm border-b border-dark-border/50">
-      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
+  return <header className="fixed top-0 z-40 w-full bg-dark-bg/80 backdrop-blur-sm border-b border-dark-border/50">
+      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between bg-purple-950">
         <Link to="/" className="flex items-center">
           <span className="font-mono text-2xl font-bold text-dark-text dot-matrix">
             MusicGift
@@ -94,27 +80,18 @@ const NavBar = () => {
             </a>
           </div>
           
-          <Button 
-            size="sm" 
-            className="hidden md:flex bg-primary hover:bg-primary/90 text-white rounded-full"
-            onClick={handleOrderClick}
-          >
+          <Button size="sm" onClick={handleOrderClick} className="hidden md:flex text-white rounded-full bg-orange-500 hover:bg-orange-400">
             Comandă Acum
           </Button>
           
-          <button 
-            className="md:hidden text-dark-text"
-            onClick={toggleMobileMenu}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          >
+          <button className="md:hidden text-dark-text" onClick={toggleMobileMenu} aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       
       {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-dark-bg border-t border-dark-border/50">
+      {mobileMenuOpen && <div className="md:hidden bg-dark-bg border-t border-dark-border/50">
           <div className="container py-4 px-4 space-y-3">
             <Link to="/" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <Home className="w-5 h-5 mr-3" /> Acasă
@@ -144,21 +121,14 @@ const NavBar = () => {
               </a>
             </div>
             
-            <Button 
-              size="sm" 
-              className="w-full bg-primary hover:bg-primary/90 text-white rounded-full"
-              onClick={() => {
-                handleOrderClick();
-                setMobileMenuOpen(false);
-              }}
-            >
+            <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-white rounded-full" onClick={() => {
+          handleOrderClick();
+          setMobileMenuOpen(false);
+        }}>
               Comandă Acum
             </Button>
           </div>
-        </div>
-      )}
-    </header>
-  );
+        </div>}
+    </header>;
 };
-
 export default NavBar;

@@ -1,7 +1,9 @@
-import { Gift, Briefcase, Star, Mic, Music, Video, ArrowRight } from "lucide-react";
+
+import { Gift, Briefcase, Star, Mic, Music, Video, ArrowRight, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const Packages = () => {
   const navigate = useNavigate();
@@ -94,54 +96,60 @@ const Packages = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
-      <section className="py-20 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-secondary mb-6 animate-fade-in">
-            Fiecare poveste merită o melodie
-          </h1>
-          <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-            Fie că vrei să surprinzi un om drag, să creezi identitatea sonoră a brandului tău, 
-            sau să lansezi o piesă originală ca artist, MusicGift îți oferă soluția perfectă.
-          </p>
-          <p className="text-xl font-playfair text-primary mb-12">
-            Alege pachetul potrivit emoției tale!
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117]">
+      {/* Hero Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#8A5CFF33,transparent_50%)]" />
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center relative z-10">
+            <Package className="w-16 h-16 text-primary mx-auto mb-6 animate-bounce-slow" />
+            <h1 className="text-4xl md:text-6xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-6">
+              Pachete și Prețuri
+            </h1>
+            <p className="text-lg md:text-xl text-dark-text-muted mb-8">
+              Alege pachetul perfect pentru povestea ta muzicală. Fiecare melodie este creată special pentru tine.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="py-12 px-4">
+      {/* Packages Grid */}
+      <section className="py-16 px-4 relative">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {packages.map((pkg, index) => (
-              <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow duration-300 border-purple-100">
+              <Card key={index} className="glass-card hover:translate-y-[-4px] transition-all duration-300 border-dark-border/50">
                 <CardHeader>
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center justify-between mb-4">
                     {pkg.icon}
-                    <CardTitle className="text-2xl font-playfair">{pkg.title}</CardTitle>
+                    <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/20">
+                      {pkg.price}
+                    </Badge>
                   </div>
-                  <div className="text-3xl font-bold text-primary mb-2">{pkg.price}</div>
-                  <CardDescription className="text-gray-600">
+                  <CardTitle className="text-2xl font-playfair text-dark-text mb-2">
+                    {pkg.title}
+                  </CardTitle>
+                  <CardDescription className="text-dark-text-muted">
                     {pkg.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
                     {pkg.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2">
+                      <li key={i} className="flex items-start gap-3">
                         <ArrowRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-600">{feature}</span>
+                        <span className="text-dark-text-muted">{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-                <CardFooter className="flex flex-col items-stretch gap-4">
-                  <p className="text-sm italic text-gray-600">{pkg.slogan}</p>
+                <CardFooter className="flex flex-col items-stretch gap-4 pt-6">
+                  <p className="text-sm italic text-dark-text-muted text-center">{pkg.slogan}</p>
                   <Button 
-                    className="w-full bg-accent hover:bg-accent/90 text-white" 
+                    className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white font-medium"
                     onClick={handleOrderClick}
                   >
-                    Comandă acum
+                    Alege acest pachet
                   </Button>
                 </CardFooter>
               </Card>
@@ -150,41 +158,51 @@ const Packages = () => {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-gradient-to-t from-purple-50 to-transparent">
+      {/* Add-ons Section */}
+      <section className="py-16 px-4 relative">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="font-playfair text-3xl font-bold text-center mb-12 text-secondary">
-            Add-ons disponibile
+          <h2 className="text-3xl font-playfair font-bold text-center mb-12 text-dark-text">
+            Servicii Adiționale
           </h2>
           <div className="grid gap-6">
             {addOns.map((addon, index) => (
-              <div key={index} 
-                className="flex items-center gap-6 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
-                {addon.icon}
-                <div className="flex-grow">
-                  <h3 className="font-bold text-lg text-secondary mb-1">{addon.title}</h3>
-                  <p className="text-gray-600 text-sm">{addon.description}</p>
-                </div>
-                <div className="text-xl font-bold text-primary">{addon.price}</div>
-              </div>
+              <Card 
+                key={index} 
+                className="glass-card hover:translate-y-[-2px] transition-all duration-300 border-dark-border/50"
+              >
+                <CardContent className="flex items-center gap-6 p-6">
+                  <div className="p-3 rounded-full bg-primary/10">
+                    {addon.icon}
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="font-bold text-lg text-dark-text mb-1">{addon.title}</h3>
+                    <p className="text-dark-text-muted text-sm">{addon.description}</p>
+                  </div>
+                  <Badge variant="secondary" className="text-lg bg-primary/10 text-primary">
+                    {addon.price}
+                  </Badge>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 px-4 text-center">
-        <div className="container mx-auto max-w-2xl">
-          <h2 className="font-playfair text-3xl font-bold mb-6 text-secondary">
-            Emoția ta merită să devină muzică
+      {/* CTA Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-playfair font-bold mb-6 text-dark-text">
+            Pregătit să-ți transformi povestea în muzică?
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            Alege pachetul potrivit și hai să începem împreună magia!
+          <p className="text-lg text-dark-text-muted mb-8">
+            Alege pachetul potrivit și începe călătoria ta muzicală astăzi!
           </p>
           <Button 
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-white text-lg px-8"
+            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white px-8 py-6 text-lg font-medium"
             onClick={handleOrderClick}
           >
-            <span>Comandă Melodia Ta</span>
+            <span>Începe Acum</span>
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

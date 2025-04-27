@@ -86,10 +86,11 @@
 
 @layer base {
   * {
-    @apply border-border-color;
+    @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
   }
 }
+

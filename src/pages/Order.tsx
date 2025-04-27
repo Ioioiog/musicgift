@@ -1,7 +1,7 @@
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Send, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,6 +43,7 @@ const formSchema = z.object({
 
 const Order = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,6 +60,7 @@ const Order = () => {
       title: "Comandă trimisă cu succes!",
       description: "Vă vom contacta în curând pentru confirmare.",
     });
+    navigate("/multumire");
   };
 
   return (

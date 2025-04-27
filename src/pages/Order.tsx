@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Send, Upload } from "lucide-react";
+import { ArrowRight, Send, Music, SparklesIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import * as z from "zod";
+import { Card, CardContent } from "@/components/ui/card";
 
 const formSchema = z.object({
   name: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
@@ -64,215 +65,203 @@ const Order = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
+    <div className="min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117]">
       {/* Hero Section */}
-      <section className="py-20 px-4 text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-secondary mb-6">
-            Emoțiile tale sunt gata să devină muzică! 🎶
-          </h1>
-          <p className="text-lg text-gray-700 mb-8">
-            Completează formularul de mai jos și echipa noastră de artiști profesioniști va începe să creeze melodia ta unică.
-          </p>
-        </div>
-      </section>
-
-      {/* Steps Section */}
-      <section className="py-12 px-4 bg-white/50">
-        <div className="container mx-auto max-w-4xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                step: 1,
-                text: "Verificăm detaliile tale și îți trimitem un email de confirmare.",
-              },
-              {
-                step: 2,
-                text: "Echipa MusicGift începe compoziția personalizată a melodiei tale.",
-              },
-              {
-                step: 3,
-                text: "În 3-5 zile, îți livrăm melodia finală și licența de utilizare conform pachetului ales.",
-              },
-              {
-                step: 4,
-                text: "Ne bucurăm împreună de emoția creată!",
-              },
-            ].map((item, i) => (
-              <div key={i} className="text-center p-6 rounded-lg bg-white/80 backdrop-blur-sm shadow-sm">
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                  {item.step}
-                </div>
-                <p className="text-gray-700">{item.text}</p>
+      <section className="relative py-20 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#8A5CFF33,transparent_50%)]" />
+        <div className="container mx-auto max-w-4xl relative z-10">
+          <div className="text-center">
+            <div className="flex justify-center mb-6">
+              <div className="p-3 rounded-full bg-primary/10 animate-bounce-slow">
+                <Music className="w-8 h-8 text-primary" />
               </div>
-            ))}
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-6">
+              Transformă Povestea Ta în Muzică
+            </h1>
+            <p className="text-lg text-dark-text-muted max-w-2xl mx-auto">
+              Completează formularul și lasă-ne să creăm melodia perfectă pentru momentul tău special.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Form Section */}
-      <section className="py-16 px-4">
+      <section className="py-12 px-4 relative">
         <div className="container mx-auto max-w-2xl">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-sm">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Prenume și Nume*</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Ion Popescu" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <Card className="glass-card border-dark-border/50">
+            <CardContent className="p-8">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-dark-text">Prenume și Nume*</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ion Popescu" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email*</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="email@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-dark-text">Email*</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="email@example.com" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Telefon (opțional)</FormLabel>
-                    <FormControl>
-                      <Input placeholder="0712345678" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="package"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alege Pachetul*</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selectează pachetul dorit" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Personal">Personal (300 RON)</SelectItem>
-                        <SelectItem value="Business">Business (900 RON)</SelectItem>
-                        <SelectItem value="Premium">Premium (1.000 RON)</SelectItem>
-                        <SelectItem value="Artist">Artist (8.000 RON)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="story"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Povestea ta*</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Descrie pentru cine este melodia, ocazia, idei de emoții..."
-                        className="min-h-[150px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="termsAccepted"
-                  render={({ field }) => (
-                    <FormItem className="flex items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>
-                          Sunt de acord cu <a href="/termeni" className="text-primary hover:underline">Termenii și Condițiile</a> MusicGift*
-                        </FormLabel>
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-dark-text">Telefon (opțional)</FormLabel>
+                        <FormControl>
+                          <Input placeholder="0712345678" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
+                        </FormControl>
                         <FormMessage />
-                      </div>
-                    </FormItem>
-                  )}
-                />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="privacyAccepted"
-                  render={({ field }) => (
-                    <FormItem className="flex items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>
-                          Sunt de acord cu <a href="/confidentialitate" className="text-primary hover:underline">Politica de Confidențialitate</a>*
-                        </FormLabel>
+                  <FormField
+                    control={form.control}
+                    name="package"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-dark-text">Alege Pachetul*</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-dark-card/50 border-dark-border/50 text-dark-text">
+                              <SelectValue placeholder="Selectează pachetul dorit" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="bg-dark-card border-dark-border">
+                            <SelectItem value="Personal">Personal (300 RON)</SelectItem>
+                            <SelectItem value="Business">Business (900 RON)</SelectItem>
+                            <SelectItem value="Premium">Premium (1.000 RON)</SelectItem>
+                            <SelectItem value="Artist">Artist (8.000 RON)</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
-                      </div>
-                    </FormItem>
-                  )}
-                />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="marketingAccepted"
-                  render={({ field }) => (
-                    <FormItem className="flex items-start space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel>
-                          Sunt de acord să primesc comunicări comerciale
-                        </FormLabel>
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
+                  <FormField
+                    control={form.control}
+                    name="story"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-dark-text">Povestea ta*</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Descrie pentru cine este melodia, ocazia, idei de emoții..."
+                            className="min-h-[150px] bg-dark-card/50 border-dark-border/50 text-dark-text"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <div className="pt-6 text-center">
-                <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90 text-white px-8">
-                  <Send className="mr-2 h-5 w-5" /> Trimite Comanda
-                </Button>
-                <p className="mt-4 text-sm text-gray-600">
-                  Mulțumim că ai ales să creezi emoție alături de noi! 🎶
-                </p>
-              </div>
-            </form>
-          </Form>
+                  <div className="space-y-4">
+                    <FormField
+                      control={form.control}
+                      name="termsAccepted"
+                      render={({ field }) => (
+                        <FormItem className="flex items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-dark-border/50 data-[state=checked]:bg-primary"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="text-dark-text">
+                              Sunt de acord cu <a href="/termeni" className="text-primary hover:underline">Termenii și Condițiile</a> MusicGift*
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="privacyAccepted"
+                      render={({ field }) => (
+                        <FormItem className="flex items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-dark-border/50 data-[state=checked]:bg-primary"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="text-dark-text">
+                              Sunt de acord cu <a href="/confidentialitate" className="text-primary hover:underline">Politica de Confidențialitate</a>*
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="marketingAccepted"
+                      render={({ field }) => (
+                        <FormItem className="flex items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-dark-border/50 data-[state=checked]:bg-primary"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="text-dark-text">
+                              Sunt de acord să primesc comunicări comerciale
+                            </FormLabel>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="pt-6">
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white"
+                    >
+                      <Send className="mr-2 h-5 w-5" /> Trimite Comanda
+                    </Button>
+                    <p className="mt-4 text-sm text-dark-text-muted text-center">
+                      Mulțumim că ai ales să creezi emoție alături de noi! 🎶
+                    </p>
+                  </div>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>

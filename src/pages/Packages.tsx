@@ -1,4 +1,3 @@
-
 import { Gift, Briefcase, Star, Mic, Music, Video, ArrowRight, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -98,15 +97,14 @@ const Packages = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117]">
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#8A5CFF33,transparent_50%)]" />
+      <section className="relative py-16 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center relative z-10">
-            <Package className="w-16 h-16 text-primary mx-auto mb-6 animate-bounce-slow" />
-            <h1 className="text-4xl md:text-6xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-6">
+            <Package className="w-12 h-12 text-primary mx-auto mb-4 animate-bounce-slow" />
+            <h1 className="text-3xl md:text-4xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-4">
               Pachete și Prețuri
             </h1>
-            <p className="text-lg md:text-xl text-dark-text-muted mb-8">
+            <p className="text-base md:text-lg text-dark-text-muted mb-6">
               Alege pachetul perfect pentru povestea ta muzicală. Fiecare melodie este creată special pentru tine.
             </p>
           </div>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import MusicPlayer from "@/components/MusicPlayer";
 import TrackCard from "@/components/TrackCard";
+import AnimatedSteps from "@/components/AnimatedSteps";
 
 // Sample tracks data
 const demoTracks = [{
@@ -133,14 +134,7 @@ const Index = () => {
           <h2 className="font-mono text-3xl font-bold mb-10 text-center tracking-tight dot-matrix">
             Cum funcționează MusicGift?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {["Completează un scurt formular cu povestea ta", "Alege pachetul potrivit pentru tine", "Echipa MusicGift compune și înregistrează melodia ta", "Primești melodia ta unică în doar câteva zile!"].map((step, index) => <div key={index} className="glass-card p-6 text-center">
-                <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="font-bold text-orange-500">{index + 1}</span>
-                </div>
-                <p className="text-dark-text-muted">{step}</p>
-              </div>)}
-          </div>
+          <AnimatedSteps />
         </div>
       </section>
 

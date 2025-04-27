@@ -150,7 +150,7 @@ const Index = () => {
             author: "Andrei, București"
           }, {
             quote: "Am primit exact ceea ce mi-am dorit. Profesionalism și suflet în fiecare notă.",
-            author: "Laura, Cluj"
+            author: "Ioana, Brașov"
           }, {
             quote: "O experiență magică. Recomand din toată inima!",
             author: "Robert, Constanța"

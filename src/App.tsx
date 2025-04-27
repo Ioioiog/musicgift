@@ -8,11 +8,11 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Packages from "./pages/Packages";
+import Order from "./pages/Order";
 
 // Placeholder pages - these will be implemented later
 const AboutPage = () => <div className="py-20 px-4 text-center">Despre Noi Page</div>;
 const PackagesPage = () => <div className="py-20 px-4 text-center">Pachete & Prețuri Page</div>;
-const OrderPage = () => <div className="py-20 px-4 text-center">Comandă Page</div>;
 const FaqPage = () => <div className="py-20 px-4 text-center">Întrebări Frecvente Page</div>;
 const TermsPage = () => <div className="py-20 px-4 text-center">Termeni și Condiții Page</div>;
 const PrivacyPage = () => <div className="py-20 px-4 text-center">Politica de Confidențialitate Page</div>;
@@ -31,7 +31,7 @@ const App = () => (
             <Route index element={<Index />} />
             <Route path="despre-noi" element={<About />} />
             <Route path="pachete" element={<Packages />} />
-            <Route path="comanda" element={<OrderPage />} />
+            <Route path="comanda" element={<Order />} />
             <Route path="faq" element={<FaqPage />} />
             <Route path="termeni" element={<TermsPage />} />
             <Route path="confidentialitate" element={<PrivacyPage />} />

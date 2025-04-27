@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -94,6 +96,26 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-lato;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+  
+  .section-title {
+    @apply font-playfair text-3xl md:text-4xl font-bold mb-8 text-secondary;
+  }
+  
+  .btn-accent {
+    @apply bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-md hover:shadow-lg;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .section-padding {
+    @apply py-16 px-4 md:py-20;
   }
 }

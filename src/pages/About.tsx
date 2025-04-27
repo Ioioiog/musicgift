@@ -1,4 +1,3 @@
-
 import { Music } from "lucide-react";
 import PageContainer from "@/components/PageContainer";
 import AboutSection from "@/components/AboutSection";
@@ -9,7 +8,17 @@ const About = () => {
     <PageContainer>
       {/* Hero Section */}
       <section className="py-12 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
+        {/* Background Image Layer */}
+        <div className="absolute inset-0">
+          <img 
+            src="/people-background.jpg" 
+            alt="" 
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/20 to-transparent backdrop-blur-sm" />
+        
         <div className="container mx-auto text-center max-w-4xl relative z-10">
           <Music className="w-8 h-8 text-primary mx-auto mb-4" />
           <h1 className="font-mono text-2xl md:text-3xl font-bold text-dark-text mb-4 animate-fade-in dot-matrix">
@@ -52,4 +61,3 @@ const About = () => {
 };
 
 export default About;
-

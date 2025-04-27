@@ -50,23 +50,46 @@ const featuredReleases = [{
   title: "Our Family",
   artist: "Gabriel & Cristina"
 }];
+
+// Video testimonials
+const videoTestimonials = [{
+  id: 1,
+  title: "Andreea & Mihai",
+  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  quote: "O melodie care ne reprezintă perfect!"
+}, {
+  id: 2,
+  title: "Elena & Victor",
+  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  quote: "Ne-am îndrăgostit de melodie din prima secundă"
+}, {
+  id: 3,
+  title: "Maria & Alexandru",
+  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+  quote: "Cel mai special cadou pe care l-am primit vreodată"
+}];
+
 const Index = () => {
   const navigate = useNavigate();
   const [currentTrack, setCurrentTrack] = useState<number | null>(null);
+
   const handleOrderClick = () => {
     navigate("/comanda");
   };
+
   const handlePlayTrack = (id: number) => {
     console.log(`Playing track ${id}`);
     setCurrentTrack(id);
     // In a real implementation, this would trigger the music player
   };
+
   const handleScrollDown = () => {
     window.scrollTo({
       top: window.innerHeight,
       behavior: 'smooth'
     });
   };
+
   return <div className="min-h-screen bg-dark-bg text-dark-text">
       {/* Hero Section with minimalist dot-matrix design */}
       <section className="min-h-screen px-4 flex flex-col justify-center relative overflow-hidden pt-16">
@@ -145,19 +168,21 @@ const Index = () => {
             Ce spun cei care au ales MusicGift
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[{
-            quote: "Cadoul perfect! Soția mea a plâns de emoție când a ascultat melodia.",
-            author: "Andrei, București"
-          }, {
-            quote: "Am primit exact ceea ce mi-am dorit. Profesionalism și suflet în fiecare notă.",
-            author: "Ioana, Brașov"
-          }, {
-            quote: "O experiență magică. Recomand din toată inima!",
-            author: "Robert, Constanța"
-          }].map((testimonial, index) => <div key={index} className="glass-card p-8 text-center">
-                <p className="italic mb-4 text-dark-text-muted">{testimonial.quote}</p>
-                <p className="font-semibold text-orange-500">— {testimonial.author}</p>
-              </div>)}
+            {videoTestimonials.map((testimonial) => (
+              <div key={testimonial.id} className="glass-card p-6 rounded-xl transition-transform duration-300 hover:scale-105">
+                <div className="aspect-video mb-4 rounded-lg overflow-hidden">
+                  <iframe
+                    src={testimonial.videoUrl}
+                    title={testimonial.title}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-orange-500 mb-2">{testimonial.title}</h3>
+                <p className="italic text-dark-text-muted">{testimonial.quote}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -176,4 +201,5 @@ const Index = () => {
       </section>
     </div>;
 };
+
 export default Index;

@@ -3,40 +3,30 @@ import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Clock } from "lucide-react";
 import PageContainer from "@/components/PageContainer";
-
 const Faq = () => {
-  const faqs = [
-    {
-      question: "Cât durează să primesc melodia mea?",
-      answer: "Melodia ta va fi gata în 3-5 zile lucrătoare de la confirmarea comenzii și a poveștii transmise. Ne dorim ca fiecare creație să fie lucrată cu grijă și profesionalism."
-    },
-    {
-      question: "Cum primesc melodia?",
-      answer: "Vei primi melodia ta personalizată prin email, într-un format de înaltă calitate (MP3 sau WAV la cerere), împreună cu licența de utilizare conform pachetului ales."
-    },
-    {
-      question: "Pot cere modificări după ce primesc melodia?",
-      answer: "Deoarece fiecare melodie este compusă personalizat după povestea ta, nu oferim modificări gratuite. Dacă dorești ajustări suplimentare, acestea pot implica un cost adițional, discutat separat."
-    },
-    {
-      question: "Pot folosi melodia comercial?",
-      answer: `Depinde de pachetul ales:
+  const faqs = [{
+    question: "Cât durează să primesc melodia mea?",
+    answer: "Melodia ta va fi gata în 3-5 zile lucrătoare de la confirmarea comenzii și a poveștii transmise. Ne dorim ca fiecare creație să fie lucrată cu grijă și profesionalism."
+  }, {
+    question: "Cum primesc melodia?",
+    answer: "Vei primi melodia ta personalizată prin email, într-un format de înaltă calitate (MP3 sau WAV la cerere), împreună cu licența de utilizare conform pachetului ales."
+  }, {
+    question: "Pot cere modificări după ce primesc melodia?",
+    answer: "Deoarece fiecare melodie este compusă personalizat după povestea ta, nu oferim modificări gratuite. Dacă dorești ajustări suplimentare, acestea pot implica un cost adițional, discutat separat."
+  }, {
+    question: "Pot folosi melodia comercial?",
+    answer: `Depinde de pachetul ales:
       - Pachet Personal → utilizare strict personală.
       - Pachet Business și Premium → utilizare comercială conform licenței.
       - Pachet Artist → co-proprietate și distribuție globală.`
-    },
-    {
-      question: "Ce se întâmplă dacă nu sunt mulțumit?",
-      answer: "Lucrăm cu cea mai mare atenție pentru a reda emoția transmisă de tine. Dacă există probleme reale (ex: livrare greșită, fișier corupt etc.), le vom remedia fără costuri suplimentare."
-    },
-    {
-      question: "Pot plăti extra pentru drepturi depline?",
-      answer: "Da, pentru pachetul Business, poți achiziționa un add-on de Full Ownership asupra melodiei. Scrie-ne și te vom ajuta cu toate detaliile!"
-    }
-  ];
-
-  return (
-    <PageContainer>
+  }, {
+    question: "Ce se întâmplă dacă nu sunt mulțumit?",
+    answer: "Lucrăm cu cea mai mare atenție pentru a reda emoția transmisă de tine. Dacă există probleme reale (ex: livrare greșită, fișier corupt etc.), le vom remedia fără costuri suplimentare."
+  }, {
+    question: "Pot plăti extra pentru drepturi depline?",
+    answer: "Da, pentru pachetul Business, poți achiziționa un add-on de Full Ownership asupra melodiei. Scrie-ne și te vom ajuta cu toate detaliile!"
+  }];
+  return <PageContainer>
       {/* Hero Section */}
       <section className="py-20 px-4 text-center">
         <div className="container mx-auto max-w-4xl">
@@ -63,21 +53,17 @@ const Faq = () => {
       <section className="container mx-auto max-w-4xl px-4 pb-20">
         <Card className="p-6 glass-card">
           <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border-b border-purple-100">
-                <AccordionTrigger className="text-left font-playfair text-lg font-medium text-secondary hover:text-accent">
+            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border-b border-purple-100">
+                <AccordionTrigger className="text-left font-playfair text-lg font-medium text-slate-50">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-700 whitespace-pre-line text-base">
                   {faq.answer}
                 </AccordionContent>
-              </AccordionItem>
-            ))}
+              </AccordionItem>)}
           </Accordion>
         </Card>
       </section>
-    </PageContainer>
-  );
+    </PageContainer>;
 };
-
 export default Faq;

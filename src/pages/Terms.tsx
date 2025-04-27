@@ -1,7 +1,7 @@
-
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import PageContainer from "@/components/PageContainer";
 
 const Terms = () => {
   const sections = [
@@ -53,14 +53,14 @@ const Terms = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
+    <PageContainer>
       {/* Hero Section */}
       <section className="py-20 px-4 text-center">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-secondary mb-6">
+          <h1 className="font-mono text-4xl md:text-5xl font-bold text-dark-text mb-6 dot-matrix">
             Termeni și Condiții
           </h1>
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-dark-text-muted">
             Vă rugăm să citiți cu atenție termenii și condițiile de utilizare a serviciilor noastre.
           </p>
         </div>
@@ -68,26 +68,26 @@ const Terms = () => {
 
       {/* Terms Content */}
       <section className="container mx-auto max-w-4xl px-4 pb-20">
-        <Card className="p-6 bg-white/80 backdrop-blur-sm shadow-md">
+        <Card className="p-6 glass-card">
           <ScrollArea className="h-[600px] pr-4">
             {sections.map((section, index) => (
               <div key={index} className="mb-8">
-                <h2 className="text-xl font-playfair font-semibold text-secondary mb-4">
+                <h2 className="text-xl font-mono font-semibold text-dark-text mb-4 dot-matrix">
                   {section.title}
                 </h2>
-                <p className="text-gray-700 whitespace-pre-line">
+                <p className="text-dark-text-muted whitespace-pre-line">
                   {section.content}
                 </p>
                 {index < sections.length - 1 && (
-                  <Separator className="mt-8 bg-purple-100" />
+                  <Separator className="mt-8 bg-dark-border" />
                 )}
               </div>
             ))}
 
             {/* Company Information */}
-            <div className="mt-8 p-4 bg-purple-50/50 rounded-lg">
-              <h3 className="font-playfair font-semibold mb-2">Date de Contact</h3>
-              <div className="space-y-1 text-gray-700">
+            <div className="mt-8 p-4 glass-card">
+              <h3 className="font-mono font-semibold mb-2 text-dark-text dot-matrix">Date de Contact</h3>
+              <div className="space-y-1 text-dark-text-muted">
                 <p>📧 {companyInfo.email}</p>
                 <p>🌐 {companyInfo.website}</p>
                 <p>🏢 Operat de: {companyInfo.company}</p>
@@ -98,7 +98,7 @@ const Terms = () => {
           </ScrollArea>
         </Card>
       </section>
-    </div>
+    </PageContainer>
   );
 };
 

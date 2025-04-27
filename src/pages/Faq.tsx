@@ -1,8 +1,8 @@
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Clock } from "lucide-react";
+import PageContainer from "@/components/PageContainer";
 
 const Faq = () => {
   const faqs = [
@@ -36,14 +36,14 @@ const Faq = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
+    <PageContainer>
       {/* Hero Section */}
       <section className="py-20 px-4 text-center">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-secondary mb-6">
+          <h1 className="font-mono text-4xl md:text-5xl font-bold text-dark-text mb-6 dot-matrix">
             Întrebări Frecvente
           </h1>
-          <p className="text-lg text-gray-700 mb-8">
+          <p className="text-lg text-dark-text-muted mb-8">
             Ai întrebări despre procesul nostru creativ? Găsește răspunsurile mai jos.
           </p>
         </div>
@@ -51,9 +51,9 @@ const Faq = () => {
 
       {/* Delivery Time Alert */}
       <section className="container mx-auto max-w-4xl px-4 mb-12">
-        <Alert className="bg-accent/10 border-accent/20">
-          <Clock className="h-5 w-5 text-accent" />
-          <AlertDescription className="text-secondary ml-2">
+        <Alert className="bg-dark-card border-dark-border">
+          <Clock className="h-5 w-5 text-primary" />
+          <AlertDescription className="text-dark-text-muted ml-2">
             Timpul mediu de livrare pentru o melodie personalizată este de 3-5 zile lucrătoare.
           </AlertDescription>
         </Alert>
@@ -61,7 +61,7 @@ const Faq = () => {
 
       {/* FAQ Accordion */}
       <section className="container mx-auto max-w-4xl px-4 pb-20">
-        <Card className="p-6 bg-white/80 backdrop-blur-sm shadow-md">
+        <Card className="p-6 glass-card">
           <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border-b border-purple-100">
@@ -76,7 +76,7 @@ const Faq = () => {
           </Accordion>
         </Card>
       </section>
-    </div>
+    </PageContainer>
   );
 };
 

@@ -1,17 +1,17 @@
-
 import { Music, Star, Award, Heart } from "lucide-react";
+import PageContainer from "@/components/PageContainer";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
+    <PageContainer>
       {/* Hero Section with Ethereal Gradient */}
-      <section className="py-32 px-4 bg-[url('/lovable-uploads/eedb3ef3-ce34-4b1d-967d-990cdef10382.png')] bg-cover bg-center bg-no-repeat relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 to-pink-500/10 backdrop-blur-sm"/>
+      <section className="py-32 px-4 bg-emotion-pattern bg-cover bg-center bg-no-repeat relative">
+        <div className="absolute inset-0 bg-dark-gradient"/>
         <div className="container mx-auto text-center max-w-4xl relative z-10">
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-secondary mb-8 animate-fade-in">
+          <h1 className="font-mono text-5xl md:text-6xl font-bold text-dark-text mb-8 animate-fade-in dot-matrix">
             Despre Noi
           </h1>
-          <div className="prose prose-lg mx-auto text-gray-700">
+          <div className="prose prose-lg mx-auto text-dark-text-muted">
             <p className="text-xl italic mb-6">
               La MusicGift credem că muzica este cea mai pură formă de emoție.
             </p>
@@ -22,25 +22,25 @@ const About = () => {
         </div>
       </section>
 
-      {/* Story Section with Soft Background */}
+      {/* Story Section with Glass Effect */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="font-playfair text-3xl font-bold mb-8 text-center text-secondary">
+          <h2 className="font-mono text-3xl font-bold mb-8 text-center text-dark-text dot-matrix">
             Povestea MusicGift
           </h2>
-          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-purple-100">
-            <p className="text-gray-700 mb-6 leading-relaxed">
+          <div className="glass-card p-8">
+            <p className="text-dark-text-muted mb-6 leading-relaxed">
               MusicGift s-a născut din dorința de a aduce oamenilor un cadou unic: o melodie creată special pentru ei.
               Într-o lume în care totul devine rapid și superficial, noi am ales să investim timp, suflet și pasiune în fiecare creație muzicală.
             </p>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-dark-text-muted leading-relaxed">
               Fondat de Mihai Gruia, producător muzical și fost membru al trupei internaționale Akcent, MusicGift combină experiența de scenă și studio cu emoția sinceră a poveștilor personale.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Team Section with Gradient Cards */}
+      {/* Team Section with Modern Cards */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="font-playfair text-3xl font-bold mb-12 text-center text-secondary">
@@ -81,7 +81,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Benefits Section with Icon Grid */}
+      {/* Benefits Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
         <div className="container mx-auto max-w-4xl">
           <h2 className="font-playfair text-3xl font-bold mb-8 text-center text-secondary">
@@ -103,7 +103,7 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+    </PageContainer>
   );
 };
 

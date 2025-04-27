@@ -1,5 +1,7 @@
+
 import { Music, Star, Award, Heart } from "lucide-react";
 import PageContainer from "@/components/PageContainer";
+import { Card } from "@/components/ui/card";
 
 const About = () => {
   return (
@@ -28,7 +30,7 @@ const About = () => {
           <h2 className="font-mono text-3xl font-bold mb-8 text-center text-dark-text dot-matrix">
             Povestea MusicGift
           </h2>
-          <div className="glass-card p-8">
+          <div className="glass-card p-8 hover-glow">
             <p className="text-dark-text-muted mb-6 leading-relaxed">
               MusicGift s-a născut din dorința de a aduce oamenilor un cadou unic: o melodie creată special pentru ei.
               Într-o lume în care totul devine rapid și superficial, noi am ales să investim timp, suflet și pasiune în fiecare creație muzicală.
@@ -43,48 +45,48 @@ const About = () => {
       {/* Team Section with Modern Cards */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
-          <h2 className="font-playfair text-3xl font-bold mb-12 text-center text-secondary">
+          <h2 className="font-mono text-3xl font-bold mb-12 text-center text-dark-text dot-matrix">
             Echipa Noastră
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
                 title: "Mihai Gruia",
-                icon: <Music className="text-purple-400" />,
+                icon: <Music className="text-primary" />,
                 content: "Producător muzical și compozitor, membru fondator al trupei Akcent cu hituri celebre precum 'That's My Name', 'Kylie' și 'Stay with Me'."
               },
               {
                 title: "Mango Records",
-                icon: <Star className="text-purple-400" />,
+                icon: <Star className="text-primary" />,
                 content: "Casă de discuri independentă, cu peste 1000 de piese distribuite global pe Spotify, Apple Music și YouTube."
               },
               {
                 title: "DOMG Studio",
-                icon: <Award className="text-purple-400" />,
+                icon: <Award className="text-primary" />,
                 content: "Studio de creație muzicală premium, cu piese compuse pentru artiști români și internaționali de top: Akcent, Andra, Lora, Alina Eremia și alții."
               },
               {
                 title: "Do Music for Good Band",
-                icon: <Heart className="text-purple-400" />,
+                icon: <Heart className="text-primary" />,
                 content: "O echipă de interpreți profesioniști care colaborează pentru a da voce melodiilor MusicGift."
               }
             ].map((item, index) => (
-              <div key={index} className="bg-gradient-to-br from-white to-purple-50 p-8 rounded-2xl shadow-lg border border-purple-100 transition-transform hover:-translate-y-1">
-                <h3 className="font-playfair text-2xl font-bold mb-4 text-secondary flex items-center gap-2">
+              <Card key={index} className="glass-card p-8 hover-glow">
+                <h3 className="font-mono text-2xl font-bold mb-4 text-dark-text flex items-center gap-2">
                   {item.icon}
                   {item.title}
                 </h3>
-                <p className="text-gray-600">{item.content}</p>
-              </div>
+                <p className="text-dark-text-muted">{item.content}</p>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="font-playfair text-3xl font-bold mb-8 text-center text-secondary">
+          <h2 className="font-mono text-3xl font-bold mb-8 text-center text-dark-text dot-matrix">
             De ce să alegi MusicGift?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -95,9 +97,9 @@ const About = () => {
               "Livrare rapidă și suport personalizat",
               "Emoție 100% autentică în fiecare notă"
             ].map((reason, index) => (
-              <div key={index} className="flex items-start gap-3 p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-purple-100 shadow transition-all hover:shadow-md">
-                <Music className="text-purple-400 mt-1 flex-shrink-0" />
-                <p className="text-gray-700">{reason}</p>
+              <div key={index} className="glass-card flex items-start gap-3 p-6 hover-glow">
+                <Music className="text-primary mt-1 flex-shrink-0" />
+                <p className="text-dark-text-muted">{reason}</p>
               </div>
             ))}
           </div>

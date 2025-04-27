@@ -1,3 +1,4 @@
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
@@ -65,29 +66,30 @@ const Order = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117]">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117] py-20 px-4">
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#8A5CFF33,transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_#FF6B0033,transparent_50%)]" />
+      
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#8A5CFF33,transparent_50%)]" />
-        <div className="container mx-auto max-w-4xl relative z-10">
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="p-3 rounded-full bg-primary/10 animate-bounce-slow">
-                <Music className="w-8 h-8 text-primary" />
-              </div>
+      <section className="relative z-10 mb-12">
+        <div className="container mx-auto max-w-4xl text-center">
+          <div className="flex justify-center mb-6">
+            <div className="p-3 rounded-full bg-primary/10 animate-bounce-slow">
+              <Music className="w-8 h-8 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-6">
-              Transformă Povestea Ta în Muzică
-            </h1>
-            <p className="text-lg text-dark-text-muted max-w-2xl mx-auto">
-              Completează formularul și lasă-ne să creăm melodia perfectă pentru momentul tău special.
-            </p>
           </div>
+          <h1 className="text-4xl md:text-5xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-6">
+            Transformă Povestea Ta în Muzică
+          </h1>
+          <p className="text-lg text-dark-text-muted max-w-2xl mx-auto">
+            Completează formularul și lasă-ne să creăm melodia perfectă pentru momentul tău special.
+          </p>
         </div>
       </section>
 
       {/* Form Section */}
-      <section className="py-12 px-4 relative">
+      <section className="relative z-10">
         <div className="container mx-auto max-w-2xl">
           <Card className="glass-card border-dark-border/50">
             <CardContent className="p-8">

@@ -108,7 +108,7 @@ const Index = () => {
         <div className="container max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-12">
             <div>
-              <h2 className="font-mono text-3xl font-bold mb-2 tracking-tight dot-matrix">Ascultă Demo</h2>
+              <h2 className="font-mono font-bold mb-2 tracking-tight dot-matrix text-6xl">Ascultă Demo</h2>
               <p className="text-dark-text-muted">Exemple de creații muzicale MusicGift</p>
             </div>
             
@@ -120,7 +120,7 @@ const Index = () => {
           
           <MusicPlayer tracks={demoTracks} className="mb-16" />
           
-          <h2 className="font-mono text-2xl font-bold mb-8 tracking-tight dot-matrix">Creații Recente</h2>
+          <h2 className="font-mono font-bold mb-8 tracking-tight dot-matrix text-3xl">Creații Recente</h2>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {featuredReleases.map(track => <TrackCard key={track.id} id={track.id} title={track.title} artist={track.artist} onPlay={() => handlePlayTrack(track.id)} />)}
@@ -129,9 +129,9 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-4 bg-dark-card">
+      <section className="px-4 bg-dark-card my-0 py-[10px]">
         <div className="container max-w-6xl mx-auto">
-          <h2 className="font-mono text-3xl font-bold mb-10 text-center tracking-tight dot-matrix">
+          <h2 className="font-mono font-bold mb-10 text-center tracking-tight dot-matrix text-6xl mx-0 px-[18px] my-[28px] py-[15px]">
             Cum funcționează MusicGift?
           </h2>
           <AnimatedSteps />
@@ -141,7 +141,7 @@ const Index = () => {
       {/* Testimonials */}
       <section className="py-20 px-4 bg-gradient-to-b from-dark-card to-dark-bg">
         <div className="container max-w-6xl mx-auto">
-          <h2 className="font-mono text-3xl font-bold mb-10 text-center tracking-tight dot-matrix">
+          <h2 className="font-mono font-bold mb-10 text-center tracking-tight dot-matrix text-4xl">
             Ce spun cei care au ales MusicGift
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

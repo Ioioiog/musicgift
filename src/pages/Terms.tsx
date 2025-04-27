@@ -17,7 +17,30 @@ const Terms = () => {
       title: "3. Descrierea Serviciilor",
       content: "MusicGift oferă crearea de melodii personalizate pentru uz personal, comercial sau artistic, în baza informațiilor furnizate de client."
     },
-    // ... add all other sections similarly
+    {
+      title: "4. Procesul de Comandă",
+      content: "Pentru a comanda o melodie personalizată, clientul trebuie să parcurgă următorii pași:\n- Selectarea pachetului dorit\n- Completarea formularului de comandă cu toate detaliile necesare despre melodia dorită\n- Efectuarea plății conform modalității alese\n- Confirmarea comenzii prin email"
+    },
+    {
+      title: "5. Proprietate Intelectuală",
+      content: "Drepturile de proprietate intelectuală asupra melodiilor create prin serviciul MusicGift sunt reglementate astfel:\n- Pachet Personal: clientul primește drept de utilizare personală, necomercială\n- Pachet Business: clientul primește licență de utilizare comercială limitată\n- Pachet Premium: clientul primește licență extinsă de utilizare comercială\n- Pachet Artist: co-proprietate asupra compoziției și masterului"
+    },
+    {
+      title: "6. Termeni de Livrare",
+      content: "Timpul standard de livrare este de 3-5 zile lucrătoare de la confirmarea plății și a tuturor detaliilor necesare."
+    },
+    {
+      title: "7. Politica de Rambursare",
+      content: "În cazul în care suntem în imposibilitatea de a livra melodia conform cerințelor specificate de client, vom oferi o rambursare integrală. Nu oferim rambursări pentru nemulțumiri subiective legate de stil sau interpretare artistică."
+    },
+    {
+      title: "8. Confidențialitate",
+      content: "Toate informațiile personale furnizate de client sunt protejate conform Politicii noastre de Confidențialitate, disponibilă pe site."
+    },
+    {
+      title: "9. Modificări ale Termenilor și Condițiilor",
+      content: "Ne rezervăm dreptul de a modifica acești termeni și condiții în orice moment, cu notificarea clienților prin email sau prin afișarea vizibilă pe site."
+    }
   ];
 
   const companyInfo = {
@@ -45,7 +68,7 @@ const Terms = () => {
 
       {/* Terms Content */}
       <section className="container mx-auto max-w-4xl px-4 pb-20">
-        <Card className="p-6 bg-white/80 backdrop-blur-sm">
+        <Card className="p-6 bg-white/80 backdrop-blur-sm shadow-md">
           <ScrollArea className="h-[600px] pr-4">
             {sections.map((section, index) => (
               <div key={index} className="mb-8">

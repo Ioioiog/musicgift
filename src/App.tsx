@@ -15,6 +15,7 @@ import Privacy from "./pages/Privacy";
 import Faq from "./pages/Faq";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
+import ThankYou from "./pages/ThankYou";
 
 // Create the query client outside of the component
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="despre-noi" element={<About />} />
               <Route path="pachete" element={<Packages />} />
               <Route path="comanda" element={<Order />} />
+              <Route path="multumire" element={<ThankYou />} />
               <Route path="faq" element={<Faq />} />
               <Route path="termeni" element={<Terms />} />
               <Route path="confidentialitate" element={<Privacy />} />

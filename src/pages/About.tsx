@@ -1,5 +1,5 @@
 
-import { Motion } from "lucide-react";
+import { Music } from "lucide-react";
 import PageContainer from "@/components/PageContainer";
 import AboutSection from "@/components/AboutSection";
 import { Card } from "@/components/ui/card";
@@ -11,7 +11,7 @@ const About = () => {
       <section className="py-32 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
         <div className="container mx-auto text-center max-w-4xl relative z-10">
-          <Motion className="w-16 h-16 text-primary mx-auto mb-8" />
+          <Music className="w-16 h-16 text-primary mx-auto mb-8" />
           <h1 className="font-mono text-5xl md:text-6xl font-bold text-dark-text mb-8 animate-fade-in dot-matrix">
             Despre Noi
           </h1>
@@ -52,4 +52,3 @@ const About = () => {
 };
 
 export default About;
-

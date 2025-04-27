@@ -11,32 +11,20 @@ const Cookies = () => {
       content: "Cookie-urile sunt fișiere mici de text care sunt stocate pe dispozitivul dumneavoastră (computer, tabletă, telefon mobil) atunci când accesați un site web. Aceste fișiere permit site-ului să vă recunoască și să memoreze informații despre vizita dumneavoastră."
     },
     {
-      title: "2. Ce cookie-uri folosim",
+      title: "2. Ce tipuri de cookie-uri folosim?",
       content: "Pe site-ul MusicGift.ro utilizăm următoarele tipuri de cookie-uri:\n\n- Cookie-uri esențiale: necesare pentru funcționarea corectă a site-ului\n- Cookie-uri de analiză: pentru a înțelege cum este utilizat site-ul nostru\n- Cookie-uri de marketing: pentru a vă oferi experiențe personalizate și relevante\n- Cookie-uri de preferințe: pentru a memora alegerile dumneavoastră pe site"
     },
     {
-      title: "3. Scopul cookie-urilor",
-      content: "Utilizăm cookie-uri pentru:\n\n- A asigura funcționalitatea corectă a site-ului\n- A analiza traficul și comportamentul utilizatorilor pe site\n- A îmbunătăți experiența de navigare\n- A personaliza conținutul în funcție de preferințele dumneavoastră\n- A permite integrarea cu rețelele sociale"
+      title: "3. Cum controlăm cookie-urile?",
+      content: "Puteți controla și/sau șterge cookie-urile după cum doriți. Puteți șterge toate cookie-urile care sunt deja pe dispozitivul dumneavoastră și puteți seta majoritatea browserelor să blocheze plasarea acestora. Dacă faceți acest lucru, este posibil să fie necesar să setați manual unele preferințe."
     },
     {
-      title: "4. Cookie-uri ale terților",
-      content: "Site-ul nostru poate conține cookie-uri de la terți precum Google Analytics, Facebook, Instagram și alți furnizori de servicii. Aceste cookie-uri sunt gestionate de respectivele companii și sunt supuse propriilor lor politici de confidențialitate."
+      title: "4. Consimțământ pentru utilizarea cookie-urilor",
+      content: "Când accesați pentru prima dată site-ul nostru, veți fi întrebat dacă acceptați utilizarea cookie-urilor. Puteți alege să acceptați toate cookie-urile, să le respingeți pe toate sau să le gestionați conform preferințelor dumneavoastră."
     },
     {
-      title: "5. Durata de stocare",
-      content: "În funcție de rolul lor, cookie-urile pot fi:\n\n- De sesiune: sunt șterse când închideți browserul\n- Persistente: rămân pe dispozitivul dumneavoastră până expiră sau sunt șterse manual"
-    },
-    {
-      title: "6. Gestionarea cookie-urilor",
-      content: "Puteți controla și/sau șterge cookie-urile după cum doriți. Puteți șterge toate cookie-urile care sunt deja pe dispozitivul dumneavoastră și puteți seta majoritatea browserelor să blocheze plasarea acestora. Dacă faceți acest lucru, este posibil să fie necesar să setați manual unele preferințe, de fiecare dată când vizitați site-ul, iar unele servicii și funcționalități s-ar putea să nu funcționeze."
-    },
-    {
-      title: "7. Dezactivarea cookie-urilor",
-      content: "Pentru a afla cum să gestionați cookie-urile în browserul dumneavoastră, vă rugăm să consultați secțiunea de ajutor a browserului sau să vizitați:\n\n- Chrome: https://support.google.com/chrome/answer/95647\n- Firefox: https://support.mozilla.org/kb/cookies-information-websites-store-on-your-computer\n- Safari: https://support.apple.com/guide/safari/manage-cookies-sfri11471\n- Edge: https://support.microsoft.com/help/17442/windows-internet-explorer-delete-manage-cookies"
-    },
-    {
-      title: "8. Modificări ale Politicii de Cookies",
-      content: "Ne rezervăm dreptul de a adapta Politica de Cookies ori de câte ori este necesar. Vă rugăm să verificați periodic această pagină pentru a fi la curent cu eventualele modificări."
+      title: "5. Modificări ale Politicii de Cookies",
+      content: "Ne rezervăm dreptul de a modifica această Politică de Cookies în orice moment. Orice modificări vor fi publicate pe această pagină și, dacă modificările sunt semnificative, vom furniza o notificare mai vizibilă."
     }
   ];
 
@@ -66,7 +54,7 @@ const Cookies = () => {
         </div>
       </section>
 
-      {/* Cookies Policy Content */}
+      {/* Content Section */}
       <section className="container mx-auto max-w-4xl px-4 pb-20">
         <Card className="p-6 bg-white/80 backdrop-blur-sm shadow-md">
           <ScrollArea className="h-[600px] pr-4">
@@ -75,7 +63,7 @@ const Cookies = () => {
                 <h2 className="text-xl font-playfair font-semibold text-secondary mb-4">
                   {section.title}
                 </h2>
-                <p className="text-gray-700 whitespace-pre-line">
+                <p className="text-gray-700 whitespace-pre-line leading-relaxed">
                   {section.content}
                 </p>
                 {index < sections.length - 1 && (

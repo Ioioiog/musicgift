@@ -1,9 +1,15 @@
-
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    navigate("/comanda");
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -18,7 +24,11 @@ const Index = () => {
               Creat de o echipă de artiști profesioniști, sub îndrumarea lui Mihai Gruia – producător, ex-membru Akcent.
             </span>
           </p>
-          <Button size="lg" className="mt-8 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200">
+          <Button 
+            size="lg" 
+            className="mt-8 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200"
+            onClick={handleOrderClick}
+          >
             Comandă Melodia Ta
           </Button>
         </div>
@@ -90,7 +100,11 @@ const Index = () => {
           <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6 text-secondary">
             Găsește-ți povestea în muzică
           </h2>
-          <Button size="lg" className="mt-4 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full">
+          <Button 
+            size="lg" 
+            className="mt-4 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full"
+            onClick={handleOrderClick}
+          >
             Comandă Melodia Ta Acum
           </Button>
         </div>

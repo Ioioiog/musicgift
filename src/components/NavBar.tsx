@@ -1,4 +1,3 @@
-
 import { Home, Info, Package, FileText, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -12,8 +11,15 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    navigate("/comanda");
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-sm border-b">
       <div className="container mx-auto flex h-16 items-center px-4 sm:px-6">
@@ -69,7 +75,11 @@ const NavBar = () => {
         </NavigationMenu>
 
         <div className="flex items-center space-x-4">
-          <Button size="sm" className="hidden md:flex bg-accent hover:bg-accent/90 text-white rounded-full">
+          <Button 
+            size="sm" 
+            className="hidden md:flex bg-accent hover:bg-accent/90 text-white rounded-full"
+            onClick={handleOrderClick}
+          >
             Comandă Acum
           </Button>
           <MobileNav />
@@ -81,7 +91,6 @@ const NavBar = () => {
 
 export default NavBar;
 
-// Mobile navigation drawer
 const MobileNav = () => {
   return (
     <div className="md:hidden">

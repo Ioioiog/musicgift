@@ -1,10 +1,15 @@
-
 import { Gift, Briefcase, Star, Mic, Music, Video, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const Packages = () => {
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    navigate("/comanda");
+  };
+
   const packages = [
     {
       icon: <Gift className="w-8 h-8 text-primary" />,
@@ -90,7 +95,6 @@ const Packages = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f3e7ff] via-white to-[#f3e7ff]">
-      {/* Hero Section */}
       <section className="py-20 px-4 text-center">
         <div className="container mx-auto max-w-4xl">
           <h1 className="font-playfair text-4xl md:text-5xl font-bold text-secondary mb-6 animate-fade-in">
@@ -106,7 +110,6 @@ const Packages = () => {
         </div>
       </section>
 
-      {/* Packages Grid */}
       <section className="py-12 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -136,7 +139,8 @@ const Packages = () => {
                   <p className="text-sm italic text-gray-600">{pkg.slogan}</p>
                   <Button 
                     className="w-full bg-accent hover:bg-accent/90 text-white" 
-                    onClick={() => window.location.href='/comanda'}>
+                    onClick={handleOrderClick}
+                  >
                     Comandă acum
                   </Button>
                 </CardFooter>
@@ -146,7 +150,6 @@ const Packages = () => {
         </div>
       </section>
 
-      {/* Add-ons Section */}
       <section className="py-16 px-4 bg-gradient-to-t from-purple-50 to-transparent">
         <div className="container mx-auto max-w-4xl">
           <h2 className="font-playfair text-3xl font-bold text-center mb-12 text-secondary">
@@ -168,7 +171,6 @@ const Packages = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="py-20 px-4 text-center">
         <div className="container mx-auto max-w-2xl">
           <h2 className="font-playfair text-3xl font-bold mb-6 text-secondary">
@@ -180,7 +182,8 @@ const Packages = () => {
           <Button 
             size="lg"
             className="bg-accent hover:bg-accent/90 text-white text-lg px-8"
-            onClick={() => window.location.href='/comanda'}>
+            onClick={handleOrderClick}
+          >
             <span>Comandă Melodia Ta</span>
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

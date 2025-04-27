@@ -10,7 +10,7 @@ const Footer = () => {
               Transformă emoțiile în muzică cu melodii personalizate create de artiști profesioniști.
             </p>
             
-            <div className="mt-6 flex items-center space-x-4">
+            <div className="mt-6 flex items-center space-x-4 bg-transparent">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
                 <Facebook size={20} />
               </a>

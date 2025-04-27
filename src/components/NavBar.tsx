@@ -15,7 +15,7 @@ const NavBar = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
   return <header className="fixed top-0 z-40 w-full bg-dark-bg/80 backdrop-blur-sm border-b border-dark-border/50">
-      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between bg-purple-950">
+      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between bg-zinc-800">
         <Link to="/" className="flex items-center">
           <span className="font-mono text-2xl font-bold text-dark-text dot-matrix">
             MusicGift

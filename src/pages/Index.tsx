@@ -83,7 +83,7 @@ const Index = () => {
           </p>
           
           <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button size="lg" onClick={handleOrderClick} className="text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow bg-violet-950 hover:bg-violet-800">
+            <Button size="lg" onClick={handleOrderClick} className="text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow bg-orange-500 hover:bg-orange-400">
               Comandă Melodia Ta
               <ArrowRight className="ml-2" size={18} />
             </Button>
@@ -96,7 +96,7 @@ const Index = () => {
         </div>
         
         {/* Background grid effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20 bg-blue-900"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20 bg-zinc-700"></div>
         
         {/* Gradient overlay */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-bg to-transparent"></div>
@@ -111,7 +111,7 @@ const Index = () => {
               <p className="text-dark-text-muted">Exemple de creații muzicale MusicGift</p>
             </div>
             
-            <Button variant="ghost" className="mt-4 md:mt-0 text-primary hover:text-primary/80" onClick={handleOrderClick}>
+            <Button variant="ghost" onClick={handleOrderClick} className="mt-4 md:mt-0 text-orange-500">
               Creează propria melodie
               <ArrowRight className="ml-2" size={16} />
             </Button>
@@ -136,7 +136,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {["Completează un scurt formular cu povestea ta", "Alege pachetul potrivit pentru tine", "Echipa MusicGift compune și înregistrează melodia ta", "Primești melodia ta unică în doar câteva zile!"].map((step, index) => <div key={index} className="glass-card p-6 text-center">
                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-primary font-bold">{index + 1}</span>
+                  <span className="font-bold text-orange-500">{index + 1}</span>
                 </div>
                 <p className="text-dark-text-muted">{step}</p>
               </div>)}
@@ -162,7 +162,7 @@ const Index = () => {
             author: "Robert, Constanța"
           }].map((testimonial, index) => <div key={index} className="glass-card p-8 text-center">
                 <p className="italic mb-4 text-dark-text-muted">{testimonial.quote}</p>
-                <p className="font-semibold text-primary">— {testimonial.author}</p>
+                <p className="font-semibold text-orange-500">— {testimonial.author}</p>
               </div>)}
           </div>
         </div>
@@ -174,7 +174,7 @@ const Index = () => {
           <h2 className="font-mono text-4xl md:text-5xl font-bold mb-6 tracking-tight dot-matrix">
             Găsește-ți povestea în muzică
           </h2>
-          <Button size="lg" className="mt-4 bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-glow" onClick={handleOrderClick}>
+          <Button size="lg" onClick={handleOrderClick} className="mt-4 text-white px-10 py-6 text-lg rounded-full animate-glow bg-orange-500 hover:bg-orange-400">
             Comandă Melodia Ta Acum
             <ArrowRight className="ml-2" size={18} />
           </Button>

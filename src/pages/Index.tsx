@@ -71,9 +71,9 @@ const Index = () => {
       {/* Hero Section with minimalist dot-matrix design */}
       <section className="min-h-screen px-4 flex flex-col justify-center relative overflow-hidden pt-16">
         <div className="container max-w-4xl mx-auto relative z-10">
-          <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold text-dark-text leading-tight animate-fade-in tracking-tighter mb-4">
-            <span className="dot-matrix">Transformă Emoțiile</span><br />
-            <span className="dot-matrix">în Muzică</span>
+          <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold text-dark-text leading-tight tracking-tighter mb-4">
+            <span className="dot-matrix music-beat inline-block">Transformă Emoțiile</span><br />
+            <span className="dot-matrix music-beat inline-block animation-delay-200">în Muzică</span>
           </h1>
           
           <p className="mt-6 text-xl text-dark-text-muted animate-fade-in delay-100 max-w-2xl">

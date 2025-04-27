@@ -148,6 +148,25 @@
       animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
   }
+
+  .music-beat {
+    animation: musicBeat 1.2s infinite;
+  }
+
+  @keyframes musicBeat {
+    0%, 100% {
+      transform: scale(1);
+    }
+    20% {
+      transform: scale(1.03);
+    }
+    40% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(1.02);
+    }
+  }
 }
 
 /* Custom styles for MusicGift */

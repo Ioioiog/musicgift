@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import Packages from "./pages/Packages";
 
 // Placeholder pages - these will be implemented later
 const AboutPage = () => <div className="py-20 px-4 text-center">Despre Noi Page</div>;
@@ -29,7 +30,7 @@ const App = () => (
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
             <Route path="despre-noi" element={<About />} />
-            <Route path="pachete" element={<PackagesPage />} />
+            <Route path="pachete" element={<Packages />} />
             <Route path="comanda" element={<OrderPage />} />
             <Route path="faq" element={<FaqPage />} />
             <Route path="termeni" element={<TermsPage />} />

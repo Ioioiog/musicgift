@@ -13,7 +13,7 @@ import Order from "./pages/Order";
 // Placeholder pages - these will be implemented later
 const AboutPage = () => <div className="py-20 px-4 text-center">Despre Noi Page</div>;
 const PackagesPage = () => <div className="py-20 px-4 text-center">Pachete & Prețuri Page</div>;
-const FaqPage = () => <div className="py-20 px-4 text-center">Întrebări Frecvente Page</div>;
+const Faq = () => <div className="py-20 px-4 text-center">Întrebări Frecvente Page</div>;
 const TermsPage = () => <div className="py-20 px-4 text-center">Termeni și Condiții Page</div>;
 const PrivacyPage = () => <div className="py-20 px-4 text-center">Politica de Confidențialitate Page</div>;
 const CookiesPage = () => <div className="py-20 px-4 text-center">Politica de Cookies Page</div>;
@@ -32,7 +32,7 @@ const App = () => (
             <Route path="despre-noi" element={<About />} />
             <Route path="pachete" element={<Packages />} />
             <Route path="comanda" element={<Order />} />
-            <Route path="faq" element={<FaqPage />} />
+            <Route path="faq" element={<Faq />} />
             <Route path="termeni" element={<TermsPage />} />
             <Route path="confidentialitate" element={<PrivacyPage />} />
             <Route path="cookies" element={<CookiesPage />} />

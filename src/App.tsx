@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Packages from "./pages/Packages";
 import Order from "./pages/Order";
+import Privacy from "./pages/Privacy";
 
 // Placeholder pages - these will be implemented later
 const AboutPage = () => <div className="py-20 px-4 text-center">Despre Noi Page</div>;
@@ -34,7 +35,7 @@ const App = () => (
             <Route path="comanda" element={<Order />} />
             <Route path="faq" element={<Faq />} />
             <Route path="termeni" element={<TermsPage />} />
-            <Route path="confidentialitate" element={<PrivacyPage />} />
+            <Route path="confidentialitate" element={<Privacy />} />
             <Route path="cookies" element={<CookiesPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />

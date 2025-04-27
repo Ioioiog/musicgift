@@ -15,7 +15,7 @@ const AnimatedSteps = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((current) => (current + 1) % steps.length);
-    }, 1000); // Change active step every 1 second
+    }, 3000); // Change active step every 3 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -38,7 +38,7 @@ const AnimatedSteps = () => {
             type: "spring",
             stiffness: 200
           }}
-          className="bg-white p-6 text-center relative overflow-hidden rounded-lg"
+          className="glass-card p-6 text-center relative overflow-hidden"
         >
           <motion.div 
             className="absolute inset-0 bg-primary/5 transform origin-left"
@@ -55,12 +55,12 @@ const AnimatedSteps = () => {
                 backgroundColor: activeStep === index ? "rgba(138, 92, 255, 0.2)" : "rgba(138, 92, 255, 0.1)"
               }}
             >
-              <span className="font-bold text-primary">{index + 1}</span>
+              <span className="font-bold text-orange-500">{index + 1}</span>
             </motion.div>
             <motion.p 
-              className="text-primary"
+              className="text-dark-text-muted"
               animate={{ 
-                opacity: activeStep === index ? 1 : 0.7
+                color: activeStep === index ? "#F0F6FC" : "#8B949E"
               }}
             >
               {step}

@@ -27,16 +27,15 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: "#9b87f5",
         secondary: "#1A1F2C",
-        accent: "#F97316", // Orange accent
+        accent: "#F97316",
         "light-purple": "#E5DEFF",
-        "warm-yellow": "#FFD166", // Warm yellow accent
-        "warm-green": "#06D6A0", // Warm green accent
-        "dark-bg": "#0D1117", // Dark background
-        "dark-card": "#161B22", // Dark card background
-        "dark-border": "#30363D", // Dark border color
-        "dark-text": "#F0F6FC", // Light text for dark backgrounds
-        "dark-text-muted": "#8B949E", // Muted text for dark backgrounds
-        "dark-accent": "#F97316", // Keep the orange accent
+        "warm-yellow": "#FFD166",
+        "warm-green": "#06D6A0",
+        "dark-bg": "#0D1117",
+        "dark-card": "#161B22",
+        "dark-border": "#30363D",
+        "dark-text": "#F0F6FC",
+        "dark-text-muted": "#8B949E",
       },
       fontFamily: {
         playfair: ["Playfair Display", "serif"],

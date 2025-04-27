@@ -31,14 +31,23 @@ export default {
         "light-purple": "#E5DEFF",
         "warm-yellow": "#FFD166", // Warm yellow accent
         "warm-green": "#06D6A0", // Warm green accent
+        "dark-bg": "#0D1117", // Dark background
+        "dark-card": "#161B22", // Dark card background
+        "dark-border": "#30363D", // Dark border color
+        "dark-text": "#F0F6FC", // Light text for dark backgrounds
+        "dark-text-muted": "#8B949E", // Muted text for dark backgrounds
+        "dark-accent": "#F97316", // Keep the orange accent
       },
       fontFamily: {
         playfair: ["Playfair Display", "serif"],
         lato: ["Lato", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",
         "slide-in": "slideIn 0.6s ease-out",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "glow": "glow 2s ease-in-out infinite alternate",
       },
       keyframes: {
         fadeIn: {
@@ -49,9 +58,14 @@ export default {
           "0%": { opacity: "0", transform: "translateX(-20px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
+        glow: {
+          "0%": { boxShadow: "0 0 5px rgba(155, 135, 245, 0.2)" },
+          "100%": { boxShadow: "0 0 20px rgba(155, 135, 245, 0.6)" },
+        },
       },
       backgroundImage: {
         'emotion-pattern': "url('/lovable-uploads/05470c85-6955-42a1-be81-c0f45a0616e3.png')",
+        'dark-gradient': "linear-gradient(to bottom, rgba(13, 17, 23, 0.8), rgba(13, 17, 23, 1))",
       },
     },
   },

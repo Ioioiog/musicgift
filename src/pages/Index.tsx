@@ -1,49 +1,136 @@
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import AboutSection from "@/components/AboutSection";
-import ServicesSection from "@/components/ServicesSection";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import MusicPlayer from "@/components/MusicPlayer";
+import TrackCard from "@/components/TrackCard";
+
+// Sample tracks data
+const demoTracks = [
+  { id: 1, title: "Memories of Us", artist: "MusicGift Studio", duration: 185 },
+  { id: 2, title: "Forever Together", artist: "MusicGift Studio", duration: 210 },
+  { id: 3, title: "Our Journey", artist: "MusicGift Studio", duration: 195 },
+];
+
+// Sample featured releases
+const featuredReleases = [
+  { id: 101, title: "Love Story", artist: "Alex & Maria" },
+  { id: 102, title: "Anniversary Waltz", artist: "Andrei & Elena" },
+  { id: 103, title: "First Sight", artist: "Mihai & Ana" },
+  { id: 104, title: "Wedding Dance", artist: "Tudor & Ioana" },
+  { id: 105, title: "Proposal Theme", artist: "Victor & Diana" },
+  { id: 106, title: "Our Family", artist: "Gabriel & Cristina" },
+];
 
 const Index = () => {
   const navigate = useNavigate();
+  const [currentTrack, setCurrentTrack] = useState<number | null>(null);
 
   const handleOrderClick = () => {
     navigate("/comanda");
   };
 
+  const handlePlayTrack = (id: number) => {
+    console.log(`Playing track ${id}`);
+    setCurrentTrack(id);
+    // In a real implementation, this would trigger the music player
+  };
+
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="py-32 px-4 text-center bg-gradient-to-b from-white via-light-purple to-white">
-        <div className="container max-w-4xl mx-auto">
-          <h1 className="font-playfair text-5xl md:text-6xl font-bold text-secondary leading-tight animate-fade-in">
-            Transformă Emoțiile Tale<br />în Muzică
+    <div className="min-h-screen bg-dark-bg text-dark-text">
+      {/* Hero Section with minimalist dot-matrix design */}
+      <section className="min-h-screen px-4 flex flex-col justify-center relative overflow-hidden pt-16">
+        <div className="container max-w-4xl mx-auto relative z-10">
+          <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold text-dark-text leading-tight animate-fade-in tracking-tighter mb-4">
+            <span className="dot-matrix">Transformă Emoțiile</span><br />
+            <span className="dot-matrix">în Muzică</span>
           </h1>
-          <p className="mt-6 text-xl text-gray-600 animate-fade-in delay-100 max-w-2xl mx-auto">
-            Cel mai frumos cadou: o melodie creată special pentru cineva drag. 
-            <span className="block mt-2 text-lg">
+          
+          <p className="mt-6 text-xl text-dark-text-muted animate-fade-in delay-100 max-w-2xl">
+            Cel mai frumos cadou: o melodie creată special pentru cineva drag.
+            <span className="block mt-3 text-lg">
               Creat de o echipă de artiști profesioniști, sub îndrumarea lui Mihai Gruia – producător, ex-membru Akcent.
             </span>
           </p>
-          <Button 
-            size="lg" 
-            className="mt-8 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200"
-            onClick={handleOrderClick}
-          >
-            Comandă Melodia Ta
-          </Button>
+          
+          <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow"
+              onClick={handleOrderClick}
+            >
+              Comandă Melodia Ta
+              <ArrowRight className="ml-2" size={18} />
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border border-dark-border/30 bg-transparent text-dark-text hover:bg-dark-card px-10 py-6 text-lg rounded-full animate-fade-in delay-300"
+              onClick={handleScrollDown}
+            >
+              Descoperă
+              <ChevronDown className="ml-2" size={18} />
+            </Button>
+          </div>
+        </div>
+        
+        {/* Background grid effect */}
+        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20"></div>
+        
+        {/* Gradient overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-bg to-transparent"></div>
+      </section>
+
+      {/* Featured Music Player Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-dark-bg via-dark-bg to-dark-card/50">
+        <div className="container max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-12">
+            <div>
+              <h2 className="font-mono text-3xl font-bold mb-2 tracking-tight dot-matrix">Ascultă Demo</h2>
+              <p className="text-dark-text-muted">Exemple de creații muzicale MusicGift</p>
+            </div>
+            
+            <Button 
+              variant="ghost" 
+              className="mt-4 md:mt-0 text-primary hover:text-primary/80"
+              onClick={handleOrderClick}
+            >
+              Creează propria melodie
+              <ArrowRight className="ml-2" size={16} />
+            </Button>
+          </div>
+          
+          <MusicPlayer tracks={demoTracks} className="mb-16" />
+          
+          <h2 className="font-mono text-2xl font-bold mb-8 tracking-tight dot-matrix">Creații Recente</h2>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {featuredReleases.map(track => (
+              <TrackCard 
+                key={track.id}
+                id={track.id}
+                title={track.title}
+                artist={track.artist}
+                onPlay={() => handlePlayTrack(track.id)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <AboutSection />
-
-      {/* Services Section */}
-      <ServicesSection />
-
       {/* How It Works */}
-      <section className="py-20 px-4 bg-light-purple">
+      <section className="py-20 px-4 bg-dark-card">
         <div className="container max-w-6xl mx-auto">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-10 text-center text-secondary">
+          <h2 className="font-mono text-3xl font-bold mb-10 text-center tracking-tight dot-matrix">
             Cum funcționează MusicGift?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -53,11 +140,11 @@ const Index = () => {
               "Echipa MusicGift compune și înregistrează melodia ta",
               "Primești melodia ta unică în doar câteva zile!"
             ].map((step, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow text-center">
-                <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-accent font-bold">{index + 1}</span>
+              <div key={index} className="glass-card p-6 text-center">
+                <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-primary font-bold">{index + 1}</span>
                 </div>
-                <p className="text-gray-700">{step}</p>
+                <p className="text-dark-text-muted">{step}</p>
               </div>
             ))}
           </div>
@@ -65,9 +152,9 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-gradient-to-b from-dark-card to-dark-bg">
         <div className="container max-w-6xl mx-auto">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-10 text-center text-secondary">
+          <h2 className="font-mono text-3xl font-bold mb-10 text-center tracking-tight dot-matrix">
             Ce spun cei care au ales MusicGift
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -85,9 +172,9 @@ const Index = () => {
                 author: "Robert, Constanța"
               }
             ].map((testimonial, index) => (
-              <div key={index} className="bg-light-purple p-8 rounded-xl text-center">
-                <p className="italic mb-4 text-gray-700">{testimonial.quote}</p>
-                <p className="font-semibold text-secondary">— {testimonial.author}</p>
+              <div key={index} className="glass-card p-8 text-center">
+                <p className="italic mb-4 text-dark-text-muted">{testimonial.quote}</p>
+                <p className="font-semibold text-primary">— {testimonial.author}</p>
               </div>
             ))}
           </div>
@@ -95,17 +182,18 @@ const Index = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-4 bg-gradient-to-b from-light-purple to-white text-center">
+      <section className="py-24 px-4 text-center bg-gradient-to-b from-dark-bg to-dark-bg/70">
         <div className="container max-w-4xl mx-auto">
-          <h2 className="font-playfair text-4xl md:text-5xl font-bold mb-6 text-secondary">
+          <h2 className="font-mono text-4xl md:text-5xl font-bold mb-6 tracking-tight dot-matrix">
             Găsește-ți povestea în muzică
           </h2>
           <Button 
             size="lg" 
-            className="mt-4 bg-accent hover:bg-accent/90 text-white px-10 py-6 text-lg rounded-full"
+            className="mt-4 bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-full animate-glow"
             onClick={handleOrderClick}
           >
             Comandă Melodia Ta Acum
+            <ArrowRight className="ml-2" size={18} />
           </Button>
         </div>
       </section>

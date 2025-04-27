@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,13 +11,12 @@ import Layout from "./components/Layout";
 import Packages from "./pages/Packages";
 import Order from "./pages/Order";
 import Privacy from "./pages/Privacy";
+import Faq from "./pages/Faq";
 
 // Placeholder pages - these will be implemented later
 const AboutPage = () => <div className="py-20 px-4 text-center">Despre Noi Page</div>;
 const PackagesPage = () => <div className="py-20 px-4 text-center">Pachete & Prețuri Page</div>;
-const Faq = () => <div className="py-20 px-4 text-center">Întrebări Frecvente Page</div>;
 const TermsPage = () => <div className="py-20 px-4 text-center">Termeni și Condiții Page</div>;
-const PrivacyPage = () => <div className="py-20 px-4 text-center">Politica de Confidențialitate Page</div>;
 const CookiesPage = () => <div className="py-20 px-4 text-center">Politica de Cookies Page</div>;
 
 const queryClient = new QueryClient();

@@ -61,14 +61,14 @@ const Faq = () => {
 
       {/* FAQ Accordion */}
       <section className="container mx-auto max-w-4xl px-4 pb-20">
-        <Card className="p-6 bg-white/80 backdrop-blur-sm">
+        <Card className="p-6 bg-white/80 backdrop-blur-sm shadow-md">
           <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border-b border-purple-100">
-                <AccordionTrigger className="text-left font-playfair text-lg hover:text-accent">
+                <AccordionTrigger className="text-left font-playfair text-lg font-medium text-secondary hover:text-accent">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-700 whitespace-pre-line">
+                <AccordionContent className="text-gray-700 whitespace-pre-line text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

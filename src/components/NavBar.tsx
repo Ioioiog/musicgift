@@ -1,3 +1,4 @@
+
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -25,44 +26,44 @@ const NavBar = () => {
         <NavigationMenu className="mx-auto hidden md:flex">
           <NavigationMenuList className="gap-1">
             <NavigationMenuItem>
-              <Link to="/">
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+                <Link to="/">
                   <Home className="w-4 h-4 mr-2" />
                   Acasă
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link to="/despre-noi">
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+                <Link to="/despre-noi">
                   <Info className="w-4 h-4 mr-2" />
                   Despre Noi
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link to="/pachete">
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+                <Link to="/pachete">
                   <Package className="w-4 h-4 mr-2" />
                   Pachete & Prețuri
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link to="/comanda">
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+                <Link to="/comanda">
                   <FileText className="w-4 h-4 mr-2" />
                   Comandă
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link to="/faq">
-                <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+                <Link to="/faq">
                   <HelpCircle className="w-4 h-4 mr-2" />
                   Întrebări
-                </NavigationMenuLink>
-              </Link>
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

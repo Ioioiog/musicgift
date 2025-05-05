@@ -1,350 +1,478 @@
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
-import { ArrowRight, Send, Music, CreditCard } from "lucide-react";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useTheme } from "@/contexts/ThemeContext";
+import PageContainer from '@/components/PageContainer';
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormDescription,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import * as z from "zod";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
-const formSchema = z.object({
-  name: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
-  email: z.string().email("Email invalid"),
-  phone: z.string().optional(),
-  package: z.enum(["Personal", "Business", "Premium", "Artist"]),
-  story: z.string().min(10, "Vă rugăm să oferiți mai multe detalii despre povestea dumneavoastră"),
-  giftCode: z.string().optional(),
-  addons: z.array(z.string()).optional(),
-  additionalNotes: z.string().optional(),
-  termsAccepted: z.boolean().refine((val) => val === true, {
-    message: "Trebuie să acceptați termenii și condițiile",
-  }),
-  privacyAccepted: z.boolean().refine((val) => val === true, {
-    message: "Trebuie să acceptați politica de confidențialitate",
-  }),
-  marketingAccepted: z.boolean().optional(),
-});
-
-const Order = () => {
-  const { toast } = useToast();
+export default function Order() {
+  const { theme } = useTheme();
   const navigate = useNavigate();
-  const [isGiftCodeValid, setIsGiftCodeValid] = useState<boolean | null>(null);
-  const [isApplyingCode, setIsApplyingCode] = useState(false);
-  
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      addons: [],
-      termsAccepted: false,
-      privacyAccepted: false,
-      marketingAccepted: false,
-      giftCode: "",
+  const [step, setStep] = useState(1);
+  const [giftCode, setGiftCode] = useState("");
+  const [giftCodeApplied, setGiftCodeApplied] = useState(false);
+  const [formData, setFormData] = useState({
+    recipientType: '',
+    occasion: '',
+    language: 'română',
+    mood: '',
+    style: '',
+    youtubeLink: '',
+    story: '',
+    keywords: ['', '', ''],
+    addOns: {
+      commercialRights: false,
+      urgentDelivery: false,
+      customMessage: false
     },
+    totalPrice: 250,
+    email: '',
+    name: '',
+    phone: ''
   });
 
-  const validateGiftCode = () => {
-    const giftCode = form.getValues("giftCode");
-    if (!giftCode) return;
-    
-    setIsApplyingCode(true);
-    
-    // Simulate API call to validate code
-    setTimeout(() => {
-      // For demo purposes, any code starting with "MG-" is considered valid
-      const isValid = giftCode.startsWith("MG-");
-      setIsGiftCodeValid(isValid);
-      
-      if (isValid) {
-        toast({
-          title: "Cod cadou aplicat!",
-          description: "Valoarea cardului cadou a fost aplicată la comandă.",
-        });
-      } else {
-        toast({
-          title: "Cod invalid",
-          description: "Codul introdus nu este valid sau a expirat.",
-          variant: "destructive",
-        });
-      }
-      
-      setIsApplyingCode(false);
-    }, 1000);
+  const basePrice = 250;
+
+  const handleAddOnToggle = (key: keyof typeof formData.addOns, price: number) => {
+    const updated = !formData.addOns[key];
+    setFormData({
+      ...formData,
+      addOns: { ...formData.addOns, [key]: updated },
+      totalPrice: formData.totalPrice + (updated ? price : -price)
+    });
+  };
+  
+  const handleGiftCodeApply = () => {
+    if (giftCode.trim() !== "") {
+      // This would normally validate the code against a database
+      // For now, we'll simulate a successful application
+      setGiftCodeApplied(true);
+      setFormData({
+        ...formData,
+        totalPrice: 0 // Assume the gift card covers the full amount
+      });
+    }
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast({
-      title: "Comandă trimisă cu succes!",
-      description: "Vă vom contacta în curând pentru confirmare.",
-    });
-    navigate("/multumire");
+  const nextStep = () => setStep((s) => Math.min(s + 1, 5));
+  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
+  
+  const handleSubmit = () => {
+    // Here you would normally process the form data, send it to a server, etc.
+    // For now, we'll just navigate to the thank you page
+    navigate('/multumire');
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#0D1117] py-16 px-4">
-      {/* Hero Section */}
-      <section className="relative z-10 mb-8">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 rounded-full bg-primary/10 animate-bounce-slow">
-              <Music className="w-8 h-8 text-primary" />
+    <PageContainer>
+      <div className={cn(
+        "min-h-screen px-4 py-10 md:px-6 lg:px-20",
+        theme === 'dark' ? 'text-white' : 'text-black'
+      )}>
+        <div className="max-w-3xl mx-auto">
+          <h1 className={cn(
+            "text-3xl md:text-4xl font-bold mb-6 font-playfair", 
+            theme === 'dark' ? 'text-white' : 'text-black'
+          )}>
+            Comandă cântecul tău personalizat
+          </h1>
+
+          <div className="mb-6">
+            <div className="relative">
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-sm text-primary">Pasul {step} din 5</div>
+                
+                {step === 4 && (
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="gift-code" className="sr-only">Cod cadou</Label>
+                    <div className={cn(
+                      "text-sm", 
+                      giftCodeApplied ? "text-green-500" : theme === 'dark' ? 'text-white' : 'text-black'
+                    )}>
+                      {giftCodeApplied ? "Card cadou aplicat!" : "Ai un card cadou?"}
+                    </div>
+                    
+                    {!giftCodeApplied && (
+                      <div className="flex space-x-2">
+                        <Input
+                          id="gift-code"
+                          type="text"
+                          placeholder="Introdu codul"
+                          value={giftCode}
+                          onChange={(e) => setGiftCode(e.target.value)}
+                          className={cn(
+                            "h-8 w-32 text-sm",
+                            theme === 'dark' ? 'bg-black/30 border-border' : 'bg-white/90'
+                          )}
+                        />
+                        <Button 
+                          onClick={handleGiftCodeApply}
+                          variant="outline" 
+                          size="sm"
+                          className="h-8"
+                        >
+                          Aplică
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              {/* Progress bar */}
+              <div className={cn(
+                "w-full h-2 rounded-full mb-8",
+                theme === 'dark' ? 'bg-white/10' : 'bg-black/10'
+              )}>
+                <div 
+                  className="h-full bg-primary rounded-full transition-all duration-500"
+                  style={{ width: `${(step / 5) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            <Card className={cn(
+              "border",
+              theme === 'dark' ? 'bg-black/30 border-border/50' : 'bg-white'
+            )}>
+              <CardContent className="p-6">
+                {/* PAS 1 */}
+                {step === 1 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-4"
+                  >
+                    <div className="space-y-2">
+                      <Label htmlFor="recipient-type">Pentru cine este piesa?</Label>
+                      <Select
+                        value={formData.recipientType}
+                        onValueChange={(value) => setFormData({ ...formData, recipientType: value })}
+                      >
+                        <SelectTrigger id="recipient-type" className={theme === 'dark' ? 'bg-black/50' : ''}>
+                          <SelectValue placeholder="Selectează..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Partener/ă">Partener/ă</SelectItem>
+                          <SelectItem value="Părinte">Părinte</SelectItem>
+                          <SelectItem value="Prieteni">Prieteni</SelectItem>
+                          <SelectItem value="Business">Business</SelectItem>
+                          <SelectItem value="Altceva">Altceva</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="occasion">Ocazia:</Label>
+                      <Input
+                        id="occasion"
+                        type="text"
+                        placeholder="ex: aniversare, nuntă, botez..."
+                        value={formData.occasion}
+                        onChange={(e) => setFormData({ ...formData, occasion: e.target.value })}
+                        className={theme === 'dark' ? 'bg-black/50' : ''}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="language">Limba piesei:</Label>
+                      <Select
+                        value={formData.language}
+                        onValueChange={(value) => setFormData({ ...formData, language: value })}
+                      >
+                        <SelectTrigger id="language" className={theme === 'dark' ? 'bg-black/50' : ''}>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="română">română</SelectItem>
+                          <SelectItem value="engleză">engleză</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PAS 2 */}
+                {step === 2 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-4"
+                  >
+                    <div className="space-y-2">
+                      <Label htmlFor="mood">Starea piesei:</Label>
+                      <Select
+                        value={formData.mood}
+                        onValueChange={(value) => setFormData({ ...formData, mood: value })}
+                      >
+                        <SelectTrigger id="mood" className={theme === 'dark' ? 'bg-black/50' : ''}>
+                          <SelectValue placeholder="Selectează..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Veselă">Veselă</SelectItem>
+                          <SelectItem value="Romantică">Romantică</SelectItem>
+                          <SelectItem value="Emoțională">Emoțională</SelectItem>
+                          <SelectItem value="Motivațională">Motivațională</SelectItem>
+                          <SelectItem value="Amuzantă">Amuzantă</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="style">Stil muzical dorit:</Label>
+                      <Input
+                        id="style"
+                        type="text"
+                        placeholder="ex: pop acustic, trap, rock..."
+                        value={formData.style}
+                        onChange={(e) => setFormData({ ...formData, style: e.target.value })}
+                        className={theme === 'dark' ? 'bg-black/50' : ''}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="youtube">Link YouTube de referință (opțional):</Label>
+                      <Input
+                        id="youtube"
+                        type="url"
+                        placeholder="https://youtube.com/..."
+                        value={formData.youtubeLink}
+                        onChange={(e) => setFormData({ ...formData, youtubeLink: e.target.value })}
+                        className={theme === 'dark' ? 'bg-black/50' : ''}
+                      />
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PAS 3 */}
+                {step === 3 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-4"
+                  >
+                    <div className="space-y-2">
+                      <Label htmlFor="story">Descrie povestea piesei:</Label>
+                      <Textarea
+                        id="story"
+                        rows={4}
+                        placeholder="Ex: Am cunoscut-o pe plajă, cântă despre ea și cățelul nostru..."
+                        value={formData.story}
+                        onChange={(e) => setFormData({ ...formData, story: e.target.value })}
+                        className={theme === 'dark' ? 'bg-black/50' : ''}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Cele mai importante 3 cuvinte sau fraze:</Label>
+                      {[0, 1, 2].map((i) => (
+                        <Input
+                          key={i}
+                          type="text"
+                          placeholder={`Cuvânt/frază ${i + 1}`}
+                          value={formData.keywords[i]}
+                          onChange={(e) => {
+                            const updated = [...formData.keywords];
+                            updated[i] = e.target.value;
+                            setFormData({ ...formData, keywords: updated });
+                          }}
+                          className={`mb-2 ${theme === 'dark' ? 'bg-black/50' : ''}`}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PAS 4 */}
+                {step === 4 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-4"
+                  >
+                    <h3 className="text-lg font-semibold mb-3">Opțiuni extra:</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="commercial-rights"
+                          checked={formData.addOns.commercialRights}
+                          onCheckedChange={() => handleAddOnToggle('commercialRights', 100)} 
+                        />
+                        <Label htmlFor="commercial-rights">Drepturi comerciale (+100 RON)</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="urgent-delivery"
+                          checked={formData.addOns.urgentDelivery} 
+                          onCheckedChange={() => handleAddOnToggle('urgentDelivery', 100)}
+                        />
+                        <Label htmlFor="urgent-delivery">Livrare urgentă (24h) (+100 RON)</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="custom-message"
+                          checked={formData.addOns.customMessage} 
+                          onCheckedChange={() => handleAddOnToggle('customMessage', 100)}
+                        />
+                        <Label htmlFor="custom-message">Mesaj audio de la tine în piesă (+100 RON)</Label>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 flex items-center justify-between">
+                      <span>Preț de bază:</span>
+                      <span>{basePrice} RON</span>
+                    </div>
+                    
+                    {Object.entries(formData.addOns)
+                      .filter(([_, value]) => value)
+                      .map(([key, _]) => (
+                        <div key={key} className="flex items-center justify-between">
+                          <span>{key === 'commercialRights' 
+                              ? 'Drepturi comerciale' 
+                              : key === 'urgentDelivery' 
+                              ? 'Livrare urgentă' 
+                              : 'Mesaj audio personalizat'}</span>
+                          <span>+100 RON</span>
+                        </div>
+                      ))}
+                    
+                    {giftCodeApplied && (
+                      <div className="flex items-center justify-between text-green-500">
+                        <span>Card cadou:</span>
+                        <span>-{formData.totalPrice} RON</span>
+                      </div>
+                    )}
+                    
+                    <div className="pt-3 mt-3 border-t border-border flex items-center justify-between">
+                      <span className="text-lg font-bold">Total:</span>
+                      <span className="text-lg font-bold text-primary">
+                        {giftCodeApplied ? "0" : formData.totalPrice} RON
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PAS 5 */}
+                {step === 5 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-6"
+                  >
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">Datele de contact:</h3>
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Numele tău complet:</Label>
+                          <Input
+                            id="name"
+                            type="text"
+                            placeholder="Nume și prenume"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            className={theme === 'dark' ? 'bg-black/50' : ''}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email:</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="email@exemplu.com"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            className={theme === 'dark' ? 'bg-black/50' : ''}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Telefon:</Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="07XXXXXXXX"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            className={theme === 'dark' ? 'bg-black/50' : ''}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-4 border-t border-border">
+                      <h3 className="text-lg font-semibold mb-3">Rezumat comandă</h3>
+                      <ul className="mb-4 space-y-1 text-sm">
+                        <li>🎁 Tip destinatar: {formData.recipientType || '—'}</li>
+                        <li>📅 Ocazie: {formData.occasion || '—'}</li>
+                        <li>🗣️ Limbă: {formData.language}</li>
+                        <li>🎵 Mood: {formData.mood || '—'}</li>
+                        <li>🎧 Stil: {formData.style || '—'}</li>
+                        <li>🔗 YouTube: {formData.youtubeLink || '—'}</li>
+                        <li>✍️ Poveste: {formData.story || '—'}</li>
+                        <li>💬 Cuvinte cheie: {formData.keywords.filter(k => k).join(', ') || '—'}</li>
+                        <li>➕ Add-ons: {Object.entries(formData.addOns)
+                            .filter(([_, val]) => val)
+                            .map(([key]) => 
+                              key === 'commercialRights' 
+                                ? 'Drepturi comerciale' 
+                                : key === 'urgentDelivery' 
+                                ? 'Livrare urgentă' 
+                                : 'Mesaj personalizat'
+                            )
+                            .join(', ') || 'Niciunul'}</li>
+                      </ul>
+                      
+                      {giftCodeApplied ? (
+                        <div className="text-lg font-bold text-green-500 mb-6">
+                          Total achitat cu cardul cadou
+                        </div>
+                      ) : (
+                        <div className="text-lg font-bold text-primary mb-6">
+                          Total de plată: {formData.totalPrice} RON
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
+            
+            <div className="mt-8 flex justify-between">
+              {step > 1 && (
+                <Button 
+                  onClick={prevStep} 
+                  variant="outline" 
+                  className={theme === 'dark' ? 'bg-black/40 border-border hover:bg-black/60' : ''}
+                >
+                  Înapoi
+                </Button>
+              )}
+              
+              {step < 5 ? (
+                <Button onClick={nextStep} className="bg-primary hover:bg-primary/90 ml-auto">
+                  Continuă
+                </Button>
+              ) : (
+                <Button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700 ml-auto">
+                  Trimite comanda & mergi la plată
+                </Button>
+              )}
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold font-playfair bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent mb-4">
-            Transformă Povestea Ta în Muzică
-          </h1>
-          <p className="text-base text-dark-text-muted max-w-2xl mx-auto">
-            Completează formularul și lasă-ne să creăm melodia perfectă pentru momentul tău special.
-          </p>
         </div>
-      </section>
-
-      {/* Form Section */}
-      <section className="relative z-10">
-        <div className="container mx-auto max-w-2xl">
-          <Card className="glass-card border-dark-border/50">
-            <CardContent className="p-8">
-              {/* Gift Card Redemption */}
-              <div className="mb-8 pb-6 border-b border-dark-border/30">
-                <h3 className="text-xl font-medium text-white mb-4 flex items-center">
-                  <CreditCard className="w-5 h-5 mr-2 text-primary" />
-                  Ai un card cadou?
-                </h3>
-                <div className="flex flex-col md:flex-row gap-4">
-                  <div className="flex-1">
-                    <FormField
-                      control={form.control}
-                      name="giftCode"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input 
-                              placeholder="Introdu codul cadou (ex: MG-ABC123)" 
-                              {...field}
-                              className="bg-dark-card/50 border-dark-border/50 text-dark-text" 
-                            />
-                          </FormControl>
-                          {isGiftCodeValid === true && (
-                            <FormDescription className="text-green-500">
-                              Cod valid! Reducerea a fost aplicată.
-                            </FormDescription>
-                          )}
-                          {isGiftCodeValid === false && (
-                            <FormMessage>
-                              Codul introdus nu este valid sau a expirat.
-                            </FormMessage>
-                          )}
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <Button 
-                    type="button" 
-                    onClick={validateGiftCode}
-                    disabled={!form.getValues("giftCode") || isApplyingCode}
-                    className="bg-primary hover:bg-primary/90 text-white"
-                  >
-                    {isApplyingCode ? "Se verifică..." : "Aplică codul"}
-                  </Button>
-                </div>
-              </div>
-
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-dark-text">Prenume și Nume*</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Ion Popescu" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-dark-text">Email*</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="email@example.com" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-dark-text">Telefon (opțional)</FormLabel>
-                        <FormControl>
-                          <Input placeholder="0712345678" {...field} className="bg-dark-card/50 border-dark-border/50 text-dark-text" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="package"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-dark-text">Alege Pachetul*</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger className="bg-dark-card/50 border-dark-border/50 text-dark-text">
-                              <SelectValue placeholder="Selectează pachetul dorit" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="bg-dark-card border-dark-border">
-                            <SelectItem value="Personal">Personal (300 RON)</SelectItem>
-                            <SelectItem value="Business">Business (900 RON)</SelectItem>
-                            <SelectItem value="Premium">Premium (1.000 RON)</SelectItem>
-                            <SelectItem value="Artist">Artist (8.000 RON)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="story"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-dark-text">Povestea ta*</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="Descrie pentru cine este melodia, ocazia, idei de emoții..."
-                            className="min-h-[150px] bg-dark-card/50 border-dark-border/50 text-dark-text"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="termsAccepted"
-                      render={({ field }) => (
-                        <FormItem className="flex items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="border-dark-border/50 data-[state=checked]:bg-primary"
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-dark-text">
-                              Sunt de acord cu <a href="/termeni" className="text-primary hover:underline">Termenii și Condițiile</a> MusicGift*
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="privacyAccepted"
-                      render={({ field }) => (
-                        <FormItem className="flex items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="border-dark-border/50 data-[state=checked]:bg-primary"
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-dark-text">
-                              Sunt de acord cu <a href="/confidentialitate" className="text-primary hover:underline">Politica de Confidențialitate</a>*
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="marketingAccepted"
-                      render={({ field }) => (
-                        <FormItem className="flex items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                              className="border-dark-border/50 data-[state=checked]:bg-primary"
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-dark-text">
-                              Sunt de acord să primesc comunicări comerciale
-                            </FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="pt-6">
-                    <Button 
-                      type="submit" 
-                      size="lg" 
-                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white"
-                    >
-                      <Send className="mr-2 h-5 w-5" /> Trimite Comanda
-                    </Button>
-                    <p className="mt-4 text-sm text-dark-text-muted text-center">
-                      Mulțumim că ai ales să creezi emoție alături de noi! 🎶
-                    </p>
-                  </div>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-    </div>
+      </div>
+    </PageContainer>
   );
-};
-
-export default Order;
+}

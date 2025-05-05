@@ -14,6 +14,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem('theme');
+    // Check for system preference if no theme is saved
+    if (!savedTheme) {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? 'dark' : 'light';
+    }
     // Return saved theme if valid, otherwise default to dark
     return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
   });
@@ -21,6 +26,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   // Apply theme class to document element
   useEffect(() => {
     const root = document.documentElement;
+    
+    // Add transition class before changing theme to ensure smooth transition
+    root.classList.add('color-theme-in-transition');
     
     if (theme === 'light') {
       root.classList.add('light-theme');
@@ -32,6 +40,12 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     
     // Save to localStorage
     localStorage.setItem('theme', theme);
+    
+    // Remove transition class after change is complete
+    setTimeout(() => {
+      root.classList.remove('color-theme-in-transition');
+    }, 300);
+    
   }, [theme]);
 
   const toggleTheme = () => {

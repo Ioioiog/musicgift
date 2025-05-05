@@ -106,7 +106,12 @@ export default function FounderMessageStep({ selectedPackage, onContinue }: Foun
               <p>📄 Poveste: {content.songStory}</p>
               <p>🎧 {content.delivery}</p>
             </div>
-            <div className="bg-primary/10 p-3 rounded-lg border border-primary/30">
+            <div className={cn(
+              "p-3 rounded-lg border", 
+              theme === 'dark' 
+                ? "bg-primary/10 border-primary/30" 
+                : "bg-primary/5 border-primary/20"
+            )}>
               <p className="italic">
                 "{content.testimonial}"
               </p>

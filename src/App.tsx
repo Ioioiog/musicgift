@@ -16,6 +16,7 @@ import Faq from "./pages/Faq";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
 import ThankYou from "./pages/ThankYou";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Create the query client outside of the component
 const queryClient = new QueryClient();
@@ -23,26 +24,28 @@ const queryClient = new QueryClient();
 const App = () => (
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Index />} />
-              <Route path="despre-noi" element={<About />} />
-              <Route path="pachete" element={<Packages />} />
-              <Route path="comanda" element={<Order />} />
-              <Route path="multumire" element={<ThankYou />} />
-              <Route path="faq" element={<Faq />} />
-              <Route path="termeni" element={<Terms />} />
-              <Route path="confidentialitate" element={<Privacy />} />
-              <Route path="cookies" element={<Cookies />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />
+                <Route path="despre-noi" element={<About />} />
+                <Route path="pachete" element={<Packages />} />
+                <Route path="comanda" element={<Order />} />
+                <Route path="multumire" element={<ThankYou />} />
+                <Route path="faq" element={<Faq />} />
+                <Route path="termeni" element={<Terms />} />
+                <Route path="confidentialitate" element={<Privacy />} />
+                <Route path="cookies" element={<Cookies />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

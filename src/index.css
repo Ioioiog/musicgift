@@ -28,12 +28,38 @@
     --radius: 0.5rem;
   }
 
+  .light-theme {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 262 80% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 0%;
+    --accent: 24 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
+    --ring: 262 80% 50%;
+  }
+
   * {
     @apply border-border selection:bg-primary/20 selection:text-primary;
   }
 
   body {
     @apply bg-black text-white font-lato antialiased;
+  }
+  
+  .light-theme body {
+    @apply bg-white text-black;
   }
   
   h1, .h1 {
@@ -57,6 +83,11 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    text-shadow: 0 0 5px rgba(138, 92, 255, 0.5);
+  }
+
+  .light-theme .dot-matrix {
+    background-image: radial-gradient(#8A5CFF 1px, transparent 1px);
     text-shadow: 0 0 5px rgba(138, 92, 255, 0.5);
   }
 

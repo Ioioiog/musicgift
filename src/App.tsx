@@ -16,6 +16,7 @@ import Faq from "./pages/Faq";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
 import ThankYou from "./pages/ThankYou";
+import GiftCard from "./pages/GiftCard";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Create the query client outside of the component
@@ -35,6 +36,7 @@ const App = () => (
                 <Route path="despre-noi" element={<About />} />
                 <Route path="pachete" element={<Packages />} />
                 <Route path="comanda" element={<Order />} />
+                <Route path="gift-card" element={<GiftCard />} />
                 <Route path="multumire" element={<ThankYou />} />
                 <Route path="faq" element={<Faq />} />
                 <Route path="termeni" element={<Terms />} />

@@ -1,8 +1,9 @@
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Send, Music, SparklesIcon } from "lucide-react";
+import { ArrowRight, Send, Music, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,6 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,6 +26,7 @@ import {
 } from "@/components/ui/select";
 import * as z from "zod";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
@@ -31,6 +34,7 @@ const formSchema = z.object({
   phone: z.string().optional(),
   package: z.enum(["Personal", "Business", "Premium", "Artist"]),
   story: z.string().min(10, "Vă rugăm să oferiți mai multe detalii despre povestea dumneavoastră"),
+  giftCode: z.string().optional(),
   addons: z.array(z.string()).optional(),
   additionalNotes: z.string().optional(),
   termsAccepted: z.boolean().refine((val) => val === true, {
@@ -45,6 +49,9 @@ const formSchema = z.object({
 const Order = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [isGiftCodeValid, setIsGiftCodeValid] = useState<boolean | null>(null);
+  const [isApplyingCode, setIsApplyingCode] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,8 +59,38 @@ const Order = () => {
       termsAccepted: false,
       privacyAccepted: false,
       marketingAccepted: false,
+      giftCode: "",
     },
   });
+
+  const validateGiftCode = () => {
+    const giftCode = form.getValues("giftCode");
+    if (!giftCode) return;
+    
+    setIsApplyingCode(true);
+    
+    // Simulate API call to validate code
+    setTimeout(() => {
+      // For demo purposes, any code starting with "MG-" is considered valid
+      const isValid = giftCode.startsWith("MG-");
+      setIsGiftCodeValid(isValid);
+      
+      if (isValid) {
+        toast({
+          title: "Cod cadou aplicat!",
+          description: "Valoarea cardului cadou a fost aplicată la comandă.",
+        });
+      } else {
+        toast({
+          title: "Cod invalid",
+          description: "Codul introdus nu este valid sau a expirat.",
+          variant: "destructive",
+        });
+      }
+      
+      setIsApplyingCode(false);
+    }, 1000);
+  };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -88,6 +125,51 @@ const Order = () => {
         <div className="container mx-auto max-w-2xl">
           <Card className="glass-card border-dark-border/50">
             <CardContent className="p-8">
+              {/* Gift Card Redemption */}
+              <div className="mb-8 pb-6 border-b border-dark-border/30">
+                <h3 className="text-xl font-medium text-white mb-4 flex items-center">
+                  <CreditCard className="w-5 h-5 mr-2 text-primary" />
+                  Ai un card cadou?
+                </h3>
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1">
+                    <FormField
+                      control={form.control}
+                      name="giftCode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input 
+                              placeholder="Introdu codul cadou (ex: MG-ABC123)" 
+                              {...field}
+                              className="bg-dark-card/50 border-dark-border/50 text-dark-text" 
+                            />
+                          </FormControl>
+                          {isGiftCodeValid === true && (
+                            <FormDescription className="text-green-500">
+                              Cod valid! Reducerea a fost aplicată.
+                            </FormDescription>
+                          )}
+                          {isGiftCodeValid === false && (
+                            <FormMessage>
+                              Codul introdus nu este valid sau a expirat.
+                            </FormMessage>
+                          )}
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <Button 
+                    type="button" 
+                    onClick={validateGiftCode}
+                    disabled={!form.getValues("giftCode") || isApplyingCode}
+                    className="bg-primary hover:bg-primary/90 text-white"
+                  >
+                    {isApplyingCode ? "Se verifică..." : "Aplică codul"}
+                  </Button>
+                </div>
+              </div>
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid gap-6 md:grid-cols-2">

@@ -1,5 +1,5 @@
 
-import { Gift, Briefcase, Star, Mic, Music, ArrowRight, Package, Check, X, LayoutGrid, LayoutList } from "lucide-react";
+import { Gift, Briefcase, Star, Mic, Music, ArrowRight, Package, Check, X, LayoutGrid, LayoutList, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +16,10 @@ const Packages = () => {
   
   const handleOrderClick = () => {
     navigate("/comanda");
+  };
+  
+  const handleGiftCardClick = () => {
+    navigate("/gift-card");
   };
   
   const packages = [{
@@ -73,6 +77,17 @@ const Packages = () => {
     ownership: "MusicGift Studio",
     useCase: "Producție muzicală independentă",
     distribution: "Livrare digitală directă"
+  }, {
+    icon: <CreditCard className="w-8 h-8 text-primary" />,
+    title: "Card Cadou",
+    price: "Valoare la alegere",
+    description: "Oferă un cadou muzical unic pentru o persoană specială",
+    features: ["Alege orice pachet ca gift card", "Mesaj personalizat pentru destinatar", "Cod unic de gift card", "Valabil 12 luni de la achiziție"],
+    slogan: "Un cadou perfect pentru momentele speciale.",
+    license: "În funcție de pachetul ales",
+    ownership: "În funcție de pachetul ales",
+    useCase: "Cadou pentru ocazii speciale",
+    distribution: "Email direct către destinatar"
   }];
 
   const comparisonCategories = [
@@ -196,9 +211,9 @@ const Packages = () => {
                           ? 'bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white' 
                           : 'bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white'
                       )} 
-                      onClick={handleOrderClick}
+                      onClick={pkg.title === "Card Cadou" ? handleGiftCardClick : handleOrderClick}
                     >
-                      Alege acest pachet
+                      {pkg.title === "Card Cadou" ? "Creează un card cadou" : "Alege acest pachet"}
                     </Button>
                   </CardFooter>
                 </Card>
@@ -269,18 +284,18 @@ const Packages = () => {
                     )}>
                       Acțiune
                     </TableCell>
-                    {packages.map((_, index) => (
+                    {packages.map((pkg, index) => (
                       <TableCell key={index} className="text-center">
                         <Button
                           size="sm"
-                          onClick={handleOrderClick}
+                          onClick={pkg.title === "Card Cadou" ? handleGiftCardClick : handleOrderClick}
                           className={cn(
                             theme === 'dark' 
                               ? 'bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white' 
                               : 'bg-gradient-to-r from-primary to-accent hover:opacity-90 text-white'
                           )}
                         >
-                          Comandă
+                          {pkg.title === "Card Cadou" ? "Creează" : "Comandă"}
                         </Button>
                       </TableCell>
                     ))}

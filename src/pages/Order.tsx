@@ -71,10 +71,11 @@ export default function Order() {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [step, setStep] = useState(0); // Start with step 0 for package selection
+  const [step, setStep] = useState(0); // Starting with package selection
   const continueButtonRef = useRef<HTMLButtonElement>(null);
   const [giftCode, setGiftCode] = useState("");
   const [giftCodeApplied, setGiftCodeApplied] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [formData, setFormData] = useState({
     selectedPackageId: 0,
     packageName: '',
@@ -104,6 +105,7 @@ export default function Order() {
   });
 
   const handlePackageSelect = (pkg: Package) => {
+    setSelectedPackage(pkg);
     setFormData({
       ...formData,
       selectedPackageId: pkg.id,
@@ -156,7 +158,7 @@ export default function Order() {
   };
 
   const nextStep = () => {
-    // Validate package selection before proceeding
+    // Special handling for the package selection step
     if (step === 0 && formData.selectedPackageId === 0) {
       toast({
         title: "Selectează un pachet",
@@ -166,15 +168,40 @@ export default function Order() {
       return;
     }
     
-    setStep((s) => Math.min(s + 1, 7)); // Now we have 7 steps total (including the founder message step)
+    // Move to the founder message step after package selection
+    if (step === 0) {
+      setStep(1); // Go to founder message step
+    } 
+    // From founder message, go to the actual form steps
+    else {
+      setStep((s) => Math.min(s + 1, 7));
+    }
   };
   
-  const prevStep = () => setStep((s) => Math.max(s - 1, 0));
+  const prevStep = () => {
+    // If we're on the first form step, go back to founder message
+    if (step === 2) {
+      setStep(1);
+    } 
+    // If we're on founder message, go back to package selection
+    else if (step === 1) {
+      setStep(0);
+    }
+    // Otherwise just go back one step
+    else {
+      setStep((s) => Math.max(s - 1, 0));
+    }
+  };
   
   const handleSubmit = () => {
     // Here you would normally process the form data, send it to a server, etc.
     // For now, we'll just navigate to the thank you page
     navigate('/multumire');
+  };
+
+  // Handle the continue from the founder message step
+  const handleFounderMessageContinue = () => {
+    setStep(2); // Move to the first actual form step
   };
 
   return (
@@ -195,8 +222,9 @@ export default function Order() {
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
                 <div className="text-sm text-primary">
-                  {/* Display different step text for founder message step */}
-                  {step === 1 ? 'Mesaj de la fondator' : `Pasul ${step === 0 ? 1 : step} din 6`}
+                  {step === 0 ? 'Pasul 1: Selectează pachetul' : 
+                   step === 1 ? 'Mesaj de la fondator' : 
+                   `Pasul ${step} din 6`}
                 </div>
                 
                 {step === 5 && (
@@ -243,7 +271,7 @@ export default function Order() {
               )}>
                 <div 
                   className="h-full bg-primary rounded-full transition-all duration-500"
-                  style={{ width: `${step === 0 ? ((1) / 6) * 100 : step === 1 ? ((1) / 6) * 100 : ((step) / 6) * 100}%` }}
+                  style={{ width: `${step === 0 ? ((1) / 6) * 100 : step === 1 ? ((1) / 6) * 100 : ((step-1) / 6) * 100}%` }}
                 />
               </div>
             </div>
@@ -253,7 +281,7 @@ export default function Order() {
               theme === 'dark' ? 'bg-black/30 border-border/50' : 'bg-white'
             )}>
               <CardContent className="p-6">
-                {/* PAS 0 - Package Selection */}
+                {/* Package Selection Step */}
                 {step === 0 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -275,11 +303,11 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* Founder Message Step - New Step 1 */}
-                {step === 1 && (
+                {/* Founder Message Step */}
+                {step === 1 && selectedPackage && (
                   <FounderMessageStep 
-                    packageName={formData.packageName} 
-                    onContinue={nextStep}
+                    selectedPackage={selectedPackage}
+                    onContinue={handleFounderMessageContinue}
                   />
                 )}
 
@@ -599,8 +627,8 @@ export default function Order() {
             </Card>
             
             <div className="mt-8 flex justify-between">
-              {/* Only show back button on steps after the founder message (which is step 1) */}
-              {(step > 0 && step !== 1) && (
+              {/* Only show back button after first step */}
+              {step > 0 && step !== 1 && (
                 <Button 
                   onClick={prevStep} 
                   variant="outline" 
@@ -610,19 +638,32 @@ export default function Order() {
                 </Button>
               )}
               
-              {/* Only show continue button on steps other than the founder message (which handles its own continue button) */}
-              {step !== 1 && (
+              {/* Only show continue button on package selection step */}
+              {step === 0 && (
+                <Button 
+                  onClick={nextStep} 
+                  className="bg-primary hover:bg-primary/90 ml-auto"
+                  ref={continueButtonRef}
+                  disabled={formData.selectedPackageId === 0}
+                >
+                  Continuă
+                </Button>
+              )}
+              
+              {/* Show the appropriate action button for later steps */}
+              {step !== 0 && step !== 1 && (
                 step < 6 ? (
                   <Button 
                     onClick={nextStep} 
                     className="bg-primary hover:bg-primary/90 ml-auto"
-                    ref={continueButtonRef}
-                    disabled={step === 0 && formData.selectedPackageId === 0}
                   >
                     Continuă
                   </Button>
                 ) : (
-                  <Button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700 ml-auto">
+                  <Button 
+                    onClick={handleSubmit} 
+                    className="bg-green-600 hover:bg-green-700 ml-auto"
+                  >
                     Trimite comanda & mergi la plată
                   </Button>
                 )

@@ -5,6 +5,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import MusicPlayer from "@/components/MusicPlayer";
 import TrackCard from "@/components/TrackCard";
 import AnimatedSteps from "@/components/AnimatedSteps";
+import Header from "@/components/Header";
 
 // Sample tracks data
 const demoTracks = [{
@@ -91,40 +92,8 @@ const Index = () => {
   };
 
   return <div className="min-h-screen bg-dark-bg text-dark-text">
-      {/* Hero Section with minimalist dot-matrix design */}
-      <section className="min-h-screen px-4 flex flex-col justify-center relative overflow-hidden pt-16">
-        <div className="container max-w-4xl mx-auto relative z-10">
-          <h1 className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold text-dark-text leading-tight tracking-tighter mb-4">
-            <span className="dot-matrix music-beat inline-block">Transformă Emoțiile</span><br />
-            <span className="dot-matrix music-beat inline-block animation-delay-200">în Muzică</span>
-          </h1>
-          
-          <p className="mt-6 text-xl text-dark-text-muted animate-fade-in delay-100 max-w-2xl">
-            Cel mai frumos cadou: o melodie creată special pentru cineva drag.
-            <span className="block mt-3 text-lg">
-              Creat de o echipă de artiști profesioniști, sub îndrumarea lui Mihai Gruia – producător, ex-membru Akcent.
-            </span>
-          </p>
-          
-          <div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button size="lg" onClick={handleOrderClick} className="text-white px-10 py-6 text-lg rounded-full animate-fade-in delay-200 animate-glow bg-orange-500 hover:bg-orange-400">
-              Comandă Melodia Ta
-              <ArrowRight className="ml-2" size={18} />
-            </Button>
-            
-            <Button variant="outline" size="lg" onClick={handleScrollDown} className="border border-dark-border/30 text-dark-text hover:bg-dark-card px-10 py-6 text-lg rounded-full animate-fade-in delay-300 bg-zinc-500 hover:bg-zinc-400">
-              Descoperă
-              <ChevronDown className="ml-2" size={18} />
-            </Button>
-          </div>
-        </div>
-        
-        {/* Background grid effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:40px_40px] opacity-20 bg-zinc-700"></div>
-        
-        {/* Gradient overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-bg to-transparent"></div>
-      </section>
+      {/* Hero Section */}
+      <Header />
 
       {/* Featured Music Player Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-dark-bg via-dark-bg to-dark-card/50">

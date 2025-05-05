@@ -1,3 +1,4 @@
+
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -5,19 +6,24 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const handleOrderClick = () => {
     navigate("/comanda");
   };
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  return <header className="fixed top-0 z-40 w-full bg-dark-bg/80 backdrop-blur-sm border-b border-dark-border/50 bg-zinc-800">
-      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between bg-zinc-800">
+  
+  return (
+    <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50">
+      <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
         <Link to="/" className="flex items-center">
-          <span className="font-mono text-2xl font-bold text-dark-text dot-matrix">
+          <span className="font-mono text-h2 font-bold text-white dot-matrix">
             MusicGift
           </span>
         </Link>
@@ -25,7 +31,7 @@ const NavBar = () => {
         <NavigationMenu className="mx-auto hidden md:flex">
           <NavigationMenuList className="gap-1">
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black")}>
                 <Link to="/">
                   <Home className="w-4 h-4 mr-2" />
                   Acasă
@@ -33,7 +39,7 @@ const NavBar = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black")}>
                 <Link to="/despre-noi">
                   <Info className="w-4 h-4 mr-2" />
                   Despre Noi
@@ -41,7 +47,7 @@ const NavBar = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black")}>
                 <Link to="/pachete">
                   <Package className="w-4 h-4 mr-2" />
                   Pachete & Prețuri
@@ -49,7 +55,7 @@ const NavBar = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black")}>
                 <Link to="/comanda">
                   <FileText className="w-4 h-4 mr-2" />
                   Comandă
@@ -57,7 +63,7 @@ const NavBar = () => {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-dark-text hover:bg-dark-card")}>
+              <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black")}>
                 <Link to="/faq">
                   <HelpCircle className="w-4 h-4 mr-2" />
                   Întrebări
@@ -69,13 +75,13 @@ const NavBar = () => {
 
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-3">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
               <Facebook size={18} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
               <Instagram size={18} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
               <Twitter size={18} />
             </a>
           </div>
@@ -84,39 +90,40 @@ const NavBar = () => {
             Comandă Acum
           </Button>
           
-          <button className="md:hidden text-dark-text" onClick={toggleMobileMenu} aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
+          <button className="md:hidden text-white" onClick={toggleMobileMenu} aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       
       {/* Mobile menu */}
-      {mobileMenuOpen && <div className="md:hidden bg-dark-bg border-t border-dark-border/50">
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-black border-t border-border/50">
           <div className="container py-4 px-4 space-y-3">
-            <Link to="/" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/" className="flex items-center py-2 text-white hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <Home className="w-5 h-5 mr-3" /> Acasă
             </Link>
-            <Link to="/despre-noi" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/despre-noi" className="flex items-center py-2 text-white hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <Info className="w-5 h-5 mr-3" /> Despre Noi
             </Link>
-            <Link to="/pachete" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/pachete" className="flex items-center py-2 text-white hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <Package className="w-5 h-5 mr-3" /> Pachete & Prețuri
             </Link>
-            <Link to="/comanda" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/comanda" className="flex items-center py-2 text-white hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <FileText className="w-5 h-5 mr-3" /> Comandă
             </Link>
-            <Link to="/faq" className="flex items-center py-2 text-dark-text hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/faq" className="flex items-center py-2 text-white hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <HelpCircle className="w-5 h-5 mr-3" /> Întrebări Frecvente
             </Link>
             
-            <div className="pt-2 flex items-center space-x-4 border-t border-dark-border/50">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+            <div className="pt-2 flex items-center space-x-4 border-t border-border/50">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-dark-text-muted hover:text-primary transition-colors">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Twitter size={20} />
               </a>
             </div>
@@ -128,7 +135,10 @@ const NavBar = () => {
               Comandă Acum
             </Button>
           </div>
-        </div>}
-    </header>;
+        </div>
+      )}
+    </header>
+  );
 };
+
 export default NavBar;

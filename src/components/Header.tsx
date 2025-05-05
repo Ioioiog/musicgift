@@ -14,13 +14,13 @@ export default function Header() {
   };
 
   return (
-    <header className={`relative h-[100vh] w-full overflow-hidden ${darkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+    <header className="relative h-[100vh] w-full overflow-hidden bg-black text-white">
       {/* Background Particles */}
       <Particles
         id="tsparticles"
         init={initParticles}
         options={{
-          background: { color: { value: darkMode ? '#000000' : '#ffffff' } },
+          background: { color: { value: '#000000' } },
           particles: {
             number: { value: 50 },
             color: { value: '#ff4081' },
@@ -37,10 +37,10 @@ export default function Header() {
       <div className="relative z-10 flex flex-col md:flex-row justify-between items-center h-full px-6 md:px-20 py-10">
         {/* Left Text */}
         <div className="text-center md:text-left space-y-4 max-w-xl">
-          <h1 className="text-4xl md:text-6xl font-bold">
+          <h1 className="text-h1 md:text-5xl font-playfair font-bold">
             Cântece personalizate pentru orice ocazie
           </h1>
-          <p className="text-lg md:text-xl text-pink-400">
+          <p className="text-body md:text-lg text-pink-400">
             Emoție. Poveste. Muzică creată doar pentru tine.
           </p>
         </div>
@@ -52,8 +52,8 @@ export default function Header() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-xl md:text-2xl font-semibold mb-2">Pentru ce este MusicGift?</h2>
-          <p className="text-2xl md:text-3xl font-bold text-pink-300 h-10">
+          <h2 className="text-h2 md:text-2xl font-playfair font-semibold mb-2">Pentru ce este MusicGift?</h2>
+          <p className="text-h2 md:text-3xl font-playfair font-bold text-pink-300 h-10">
             <Typewriter
               words={[
                 'Aniversări 🎂',
@@ -70,7 +70,7 @@ export default function Header() {
               delaySpeed={1500}
             />
           </p>
-          <button className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-sm">
+          <button className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-body">
             Vezi exemple
           </button>
         </motion.div>

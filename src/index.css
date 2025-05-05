@@ -6,24 +6,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
     --primary: 262 80% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 100%;
     --accent: 24 100% 50%;
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
     --ring: 262 80% 50%;
     --radius: 0.5rem;
   }
@@ -33,7 +33,19 @@
   }
 
   body {
-    @apply bg-dark-bg text-dark-text font-lato antialiased;
+    @apply bg-black text-white font-lato antialiased;
+  }
+  
+  h1, .h1 {
+    @apply text-h1 font-playfair font-bold;
+  }
+  
+  h2, .h2 {
+    @apply text-h2 font-playfair font-semibold;
+  }
+  
+  p, .body-text {
+    @apply text-body font-lato;
   }
 }
 
@@ -49,15 +61,15 @@
   }
 
   .glass-card {
-    @apply bg-dark-card/50 backdrop-blur-sm border border-dark-border/50 rounded-lg transition-all duration-300 hover:bg-dark-card/60;
+    @apply bg-black/50 backdrop-blur-sm border border-border/50 rounded-lg transition-all duration-300 hover:bg-black/60;
   }
 
   .section-title {
-    @apply font-mono text-3xl md:text-4xl font-bold mb-8 tracking-tight dot-matrix;
+    @apply font-playfair text-h2 font-bold mb-8 text-white;
   }
 
   .section-description {
-    @apply text-dark-text-muted text-lg mb-8 max-w-2xl mx-auto;
+    @apply text-white text-body mb-8 max-w-2xl mx-auto;
   }
 
   .content-section {
@@ -171,7 +183,7 @@
 
 /* Custom styles for MusicGift */
 .hero-gradient {
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), 
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), 
               url('/lovable-uploads/05470c85-6955-42a1-be81-c0f45a0616e3.png');
   background-size: cover;
   background-position: center;

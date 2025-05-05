@@ -8,7 +8,7 @@ interface PageContainerProps {
 
 const PageContainer = ({ children, className }: PageContainerProps) => {
   return (
-    <div className={cn("min-h-screen bg-gradient-to-b from-dark-bg via-[#161B22] to-dark-bg relative", className)}>
+    <div className={cn("min-h-screen bg-black relative", className)}>
       {/* Background grid effect with new primary color */}
       <div className="absolute inset-0 bg-[radial-gradient(#8A5CFF_1px,transparent_1px)] [background-size:40px_40px] opacity-10" />
       
@@ -18,7 +18,7 @@ const PageContainer = ({ children, className }: PageContainerProps) => {
       </div>
       
       {/* Gradient overlay at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-bg to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
     </div>
   );
 };

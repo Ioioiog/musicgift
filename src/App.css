@@ -1,7 +1,7 @@
 
 /* Custom styles for MusicGift */
 .hero-gradient {
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), 
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)), 
               url('/lovable-uploads/05470c85-6955-42a1-be81-c0f45a0616e3.png');
   background-size: cover;
   background-position: center;

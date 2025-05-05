@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,28 +19,33 @@ export default {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: "#333333",
+        input: "#333333",
+        ring: "#8A5CFF",
+        background: "#000000",
+        foreground: "#FFFFFF",
         primary: "#8A5CFF",
-        secondary: "#1A1F2C",
+        secondary: "#000000",
         accent: "#FF6B00",
         "light-purple": "#E5DEFF",
         "warm-yellow": "#FFD166",
         "warm-green": "#06D6A0",
-        "dark-bg": "#0D1117",
-        "dark-card": "#161B22",
-        "dark-border": "#30363D",
-        "dark-text": "#F0F6FC",
-        "dark-text-muted": "#8B949E",
+        "dark-bg": "#000000",
+        "dark-card": "#000000",
+        "dark-border": "#333333",
+        "dark-text": "#FFFFFF",
+        "dark-text-muted": "#FFFFFF",
         "secondary-accent": "#F9A8D4",
       },
       fontFamily: {
-        playfair: ["Playfair Display", "serif"],
-        lato: ["Lato", "sans-serif"],
+        playfair: ["Playfair Display", "serif"], // Heading font
+        lato: ["Lato", "sans-serif"], // Body text font
         mono: ["JetBrains Mono", "monospace"],
+      },
+      fontSize: {
+        'h1': '32px',
+        'h2': '24px',
+        'body': '16px',
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-out",

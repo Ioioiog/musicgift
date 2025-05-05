@@ -4,7 +4,7 @@ import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
-import type { Engine } from 'tsparticles';
+import type { Engine } from 'tsparticles-engine';
 
 export default function Header() {
   const [darkMode, setDarkMode] = useState(true);

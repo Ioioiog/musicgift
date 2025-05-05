@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from "@/contexts/ThemeContext";
@@ -15,6 +14,7 @@ import { cn } from "@/lib/utils";
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { useToast } from "@/hooks/use-toast";
 import PackageCard, { Package } from '@/components/PackageCard';
+import FounderMessageStep from '@/components/FounderMessageStep';
 
 const packages: Package[] = [
   {
@@ -166,7 +166,7 @@ export default function Order() {
       return;
     }
     
-    setStep((s) => Math.min(s + 1, 6)); // Now we have 6 steps total
+    setStep((s) => Math.min(s + 1, 7)); // Now we have 7 steps total (including the founder message step)
   };
   
   const prevStep = () => setStep((s) => Math.max(s - 1, 0));
@@ -194,9 +194,12 @@ export default function Order() {
           <div className="mb-6">
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="text-sm text-primary">Pasul {step + 1} din 6</div>
+                <div className="text-sm text-primary">
+                  {/* Display different step text for founder message step */}
+                  {step === 1 ? 'Mesaj de la fondator' : `Pasul ${step === 0 ? 1 : step} din 6`}
+                </div>
                 
-                {step === 4 && (
+                {step === 5 && (
                   <div className="flex items-center space-x-2">
                     <Label htmlFor="gift-code" className="sr-only">Cod cadou</Label>
                     <div className={cn(
@@ -240,7 +243,7 @@ export default function Order() {
               )}>
                 <div 
                   className="h-full bg-primary rounded-full transition-all duration-500"
-                  style={{ width: `${((step + 1) / 6) * 100}%` }}
+                  style={{ width: `${step === 0 ? ((1) / 6) * 100 : step === 1 ? ((1) / 6) * 100 : ((step) / 6) * 100}%` }}
                 />
               </div>
             </div>
@@ -272,8 +275,16 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 1 - repurposed from original step 1 */}
+                {/* Founder Message Step - New Step 1 */}
                 {step === 1 && (
+                  <FounderMessageStep 
+                    packageName={formData.packageName} 
+                    onContinue={nextStep}
+                  />
+                )}
+
+                {/* PAS 1 - Now becomes step 2 */}
+                {step === 2 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }}
@@ -329,8 +340,8 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 2 - Moved from original step 2 */}
-                {step === 2 && (
+                {/* PAS 2 - Now becomes step 3 */}
+                {step === 3 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }}
@@ -382,8 +393,8 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 3 - Moved from original step 3 */}
-                {step === 3 && (
+                {/* PAS 3 - Now becomes step 4 */}
+                {step === 4 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }}
@@ -422,8 +433,8 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 4 - Moved from original step 4 */}
-                {step === 4 && (
+                {/* PAS 4 - Now becomes step 5 */}
+                {step === 5 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }}
@@ -497,8 +508,8 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 5 - Moved from original step 5 */}
-                {step === 5 && (
+                {/* PAS 5 - Now becomes step 6 */}
+                {step === 6 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }}
@@ -588,7 +599,8 @@ export default function Order() {
             </Card>
             
             <div className="mt-8 flex justify-between">
-              {step > 0 && (
+              {/* Only show back button on steps after the founder message (which is step 1) */}
+              {(step > 0 && step !== 1) && (
                 <Button 
                   onClick={prevStep} 
                   variant="outline" 
@@ -598,19 +610,22 @@ export default function Order() {
                 </Button>
               )}
               
-              {step < 5 ? (
-                <Button 
-                  onClick={nextStep} 
-                  className="bg-primary hover:bg-primary/90 ml-auto"
-                  ref={continueButtonRef}
-                  disabled={step === 0 && formData.selectedPackageId === 0}
-                >
-                  Continuă
-                </Button>
-              ) : (
-                <Button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700 ml-auto">
-                  Trimite comanda & mergi la plată
-                </Button>
+              {/* Only show continue button on steps other than the founder message (which handles its own continue button) */}
+              {step !== 1 && (
+                step < 6 ? (
+                  <Button 
+                    onClick={nextStep} 
+                    className="bg-primary hover:bg-primary/90 ml-auto"
+                    ref={continueButtonRef}
+                    disabled={step === 0 && formData.selectedPackageId === 0}
+                  >
+                    Continuă
+                  </Button>
+                ) : (
+                  <Button onClick={handleSubmit} className="bg-green-600 hover:bg-green-700 ml-auto">
+                    Trimite comanda & mergi la plată
+                  </Button>
+                )
               )}
             </div>
           </div>

@@ -12,10 +12,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import VoiceRecorder from '@/components/VoiceRecorder';
+import { useToast } from "@/hooks/use-toast";
 
 export default function Order() {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [giftCode, setGiftCode] = useState("");
   const [giftCodeApplied, setGiftCodeApplied] = useState(false);
@@ -36,7 +39,12 @@ export default function Order() {
     totalPrice: 250,
     email: '',
     name: '',
-    phone: ''
+    phone: '',
+    audioMessage: {
+      url: '',
+      duration: 0,
+      filename: ''
+    }
   });
 
   const basePrice = 250;
@@ -47,6 +55,18 @@ export default function Order() {
       ...formData,
       addOns: { ...formData.addOns, [key]: updated },
       totalPrice: formData.totalPrice + (updated ? price : -price)
+    });
+  };
+  
+  const handleVoiceRecordSave = (url: string, duration: number, filename: string) => {
+    setFormData({
+      ...formData,
+      audioMessage: { url, duration, filename }
+    });
+    
+    toast({
+      title: "Mesaj vocal salvat",
+      description: `Durata: ${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}`,
     });
   };
   
@@ -328,6 +348,11 @@ export default function Order() {
                         />
                         <Label htmlFor="custom-message">Mesaj audio de la tine în piesă (+100 RON)</Label>
                       </div>
+                      
+                      {/* Conditionally render the VoiceRecorder component */}
+                      {formData.addOns.customMessage && (
+                        <VoiceRecorder onSave={handleVoiceRecordSave} />
+                      )}
                     </div>
                     
                     <div className="mt-6 flex items-center justify-between">
@@ -432,6 +457,10 @@ export default function Order() {
                                 : 'Mesaj personalizat'
                             )
                             .join(', ') || 'Niciunul'}</li>
+                        
+                        {formData.addOns.customMessage && formData.audioMessage.url && (
+                          <li>🎤 Mesaj audio: {formData.audioMessage.filename} ({Math.floor(formData.audioMessage.duration / 60)}:{(formData.audioMessage.duration % 60).toString().padStart(2, '0')})</li>
+                        )}
                       </ul>
                       
                       {giftCodeApplied ? (

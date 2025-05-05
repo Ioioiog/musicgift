@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import { motion } from 'framer-motion';
 import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles-engine';
+import { loadFull } from 'tsparticles';
 import { Engine } from 'tsparticles-engine';
 
 export default function Header() {

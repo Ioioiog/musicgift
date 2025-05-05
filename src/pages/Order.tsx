@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from "@/contexts/ThemeContext";
 import PageContainer from '@/components/PageContainer';
@@ -14,15 +14,70 @@ import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import VoiceRecorder from '@/components/VoiceRecorder';
 import { useToast } from "@/hooks/use-toast";
+import PackageCard, { Package } from '@/components/PackageCard';
+
+const packages: Package[] = [
+  {
+    id: 1,
+    name: "Personal",
+    description: "🎁 Cadou muzical pentru cineva drag.",
+    duration: "🎧 ~3 min",
+    license: "📄 Doar uz personal",
+    price: 250
+  },
+  {
+    id: 2,
+    name: "Personal + Comercial",
+    description: "🎁 Cadou + drepturi comerciale (YouTube, TikTok, Spotify).",
+    duration: "🎧 ~3 min",
+    license: "📄 Uz personal + monetizare",
+    price: 350
+  },
+  {
+    id: 3,
+    name: "Business",
+    description: "💼 Sunet pentru brandul tău – reclame, prezentări.",
+    duration: "🎧 ~3 min",
+    license: "📄 Licență comercială limitată",
+    price: 490
+  },
+  {
+    id: 4,
+    name: "Premium",
+    description: "🌟 Distribuție publică + producție avansată.",
+    duration: "🎧 ~4 min",
+    license: "📄 Public (YouTube, TV, Spotify)",
+    price: 690
+  },
+  {
+    id: 5,
+    name: "Artist",
+    description: "🎤 Co-creație muzicală – împărțim versurile și vibe-ul.",
+    duration: "🎧 ~4 min",
+    license: "📄 Drepturi partajate 50/50",
+    price: 850
+  },
+  {
+    id: 6,
+    name: "Buyout (Exclusiv)",
+    description: "👑 Devii 100% proprietar al piesei, full rights.",
+    duration: "🎧 ~4–5 min",
+    license: "📄 Drepturi exclusive și master",
+    price: 1200
+  }
+];
 
 export default function Order() {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0); // Start with step 0 for package selection
+  const continueButtonRef = useRef<HTMLButtonElement>(null);
   const [giftCode, setGiftCode] = useState("");
   const [giftCodeApplied, setGiftCodeApplied] = useState(false);
   const [formData, setFormData] = useState({
+    selectedPackageId: 0,
+    packageName: '',
     recipientType: '',
     occasion: '',
     language: 'română',
@@ -36,7 +91,8 @@ export default function Order() {
       urgentDelivery: false,
       customMessage: false
     },
-    totalPrice: 250,
+    totalPrice: 0,
+    basePrice: 0,
     email: '',
     name: '',
     phone: '',
@@ -47,14 +103,31 @@ export default function Order() {
     }
   });
 
-  const basePrice = 250;
+  const handlePackageSelect = (pkg: Package) => {
+    setFormData({
+      ...formData,
+      selectedPackageId: pkg.id,
+      packageName: pkg.name,
+      basePrice: pkg.price,
+      totalPrice: pkg.price + calculateAddOnsTotal(),
+    });
+    
+    // Scroll to continue button with a slight delay
+    setTimeout(() => {
+      continueButtonRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  };
+
+  const calculateAddOnsTotal = () => {
+    return Object.values(formData.addOns).filter(Boolean).length * 100;
+  };
 
   const handleAddOnToggle = (key: keyof typeof formData.addOns, price: number) => {
     const updated = !formData.addOns[key];
     setFormData({
       ...formData,
       addOns: { ...formData.addOns, [key]: updated },
-      totalPrice: formData.totalPrice + (updated ? price : -price)
+      totalPrice: formData.basePrice + calculateAddOnsTotal() + (updated ? price : -price)
     });
   };
   
@@ -82,8 +155,21 @@ export default function Order() {
     }
   };
 
-  const nextStep = () => setStep((s) => Math.min(s + 1, 5));
-  const prevStep = () => setStep((s) => Math.max(s - 1, 1));
+  const nextStep = () => {
+    // Validate package selection before proceeding
+    if (step === 0 && formData.selectedPackageId === 0) {
+      toast({
+        title: "Selectează un pachet",
+        description: "Trebuie să alegi un pachet pentru a continua.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    setStep((s) => Math.min(s + 1, 6)); // Now we have 6 steps total
+  };
+  
+  const prevStep = () => setStep((s) => Math.max(s - 1, 0));
   
   const handleSubmit = () => {
     // Here you would normally process the form data, send it to a server, etc.
@@ -108,7 +194,7 @@ export default function Order() {
           <div className="mb-6">
             <div className="relative">
               <div className="flex items-center justify-between mb-4">
-                <div className="text-sm text-primary">Pasul {step} din 5</div>
+                <div className="text-sm text-primary">Pasul {step + 1} din 6</div>
                 
                 {step === 4 && (
                   <div className="flex items-center space-x-2">
@@ -154,7 +240,7 @@ export default function Order() {
               )}>
                 <div 
                   className="h-full bg-primary rounded-full transition-all duration-500"
-                  style={{ width: `${(step / 5) * 100}%` }}
+                  style={{ width: `${((step + 1) / 6) * 100}%` }}
                 />
               </div>
             </div>
@@ -164,7 +250,29 @@ export default function Order() {
               theme === 'dark' ? 'bg-black/30 border-border/50' : 'bg-white'
             )}>
               <CardContent className="p-6">
-                {/* PAS 1 */}
+                {/* PAS 0 - Package Selection */}
+                {step === 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-4"
+                  >
+                    <h2 className="text-xl font-semibold mb-4">Alege pachetul potrivit pentru tine</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {packages.map((pkg) => (
+                        <PackageCard
+                          key={pkg.id}
+                          package={pkg}
+                          isSelected={formData.selectedPackageId === pkg.id}
+                          onClick={() => handlePackageSelect(pkg)}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* PAS 1 - repurposed from original step 1 */}
                 {step === 1 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -221,7 +329,7 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 2 */}
+                {/* PAS 2 - Moved from original step 2 */}
                 {step === 2 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -274,7 +382,7 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 3 */}
+                {/* PAS 3 - Moved from original step 3 */}
                 {step === 3 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -314,7 +422,7 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 4 */}
+                {/* PAS 4 - Moved from original step 4 */}
                 {step === 4 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -356,8 +464,8 @@ export default function Order() {
                     </div>
                     
                     <div className="mt-6 flex items-center justify-between">
-                      <span>Preț de bază:</span>
-                      <span>{basePrice} RON</span>
+                      <span>Preț {formData.packageName}:</span>
+                      <span>{formData.basePrice} RON</span>
                     </div>
                     
                     {Object.entries(formData.addOns)
@@ -376,7 +484,7 @@ export default function Order() {
                     {giftCodeApplied && (
                       <div className="flex items-center justify-between text-green-500">
                         <span>Card cadou:</span>
-                        <span>-{formData.totalPrice} RON</span>
+                        <span>-{formData.basePrice + calculateAddOnsTotal()} RON</span>
                       </div>
                     )}
                     
@@ -389,7 +497,7 @@ export default function Order() {
                   </motion.div>
                 )}
 
-                {/* PAS 5 */}
+                {/* PAS 5 - Moved from original step 5 */}
                 {step === 5 && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
@@ -439,6 +547,7 @@ export default function Order() {
                     <div className="pt-4 border-t border-border">
                       <h3 className="text-lg font-semibold mb-3">Rezumat comandă</h3>
                       <ul className="mb-4 space-y-1 text-sm">
+                        <li>📦 Pachet: {formData.packageName || '—'}</li>
                         <li>🎁 Tip destinatar: {formData.recipientType || '—'}</li>
                         <li>📅 Ocazie: {formData.occasion || '—'}</li>
                         <li>🗣️ Limbă: {formData.language}</li>
@@ -479,7 +588,7 @@ export default function Order() {
             </Card>
             
             <div className="mt-8 flex justify-between">
-              {step > 1 && (
+              {step > 0 && (
                 <Button 
                   onClick={prevStep} 
                   variant="outline" 
@@ -490,7 +599,12 @@ export default function Order() {
               )}
               
               {step < 5 ? (
-                <Button onClick={nextStep} className="bg-primary hover:bg-primary/90 ml-auto">
+                <Button 
+                  onClick={nextStep} 
+                  className="bg-primary hover:bg-primary/90 ml-auto"
+                  ref={continueButtonRef}
+                  disabled={step === 0 && formData.selectedPackageId === 0}
+                >
                   Continuă
                 </Button>
               ) : (

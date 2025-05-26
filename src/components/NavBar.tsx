@@ -1,4 +1,3 @@
-
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -23,12 +22,7 @@ const NavBar = () => {
   return (
     <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
       <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <img 
-            src="/lovable-uploads/c8f42786-a7f3-4527-955f-e248ac2c088d.png" 
-            alt="MusicGift Logo" 
-            className="h-8 w-8 object-contain"
-          />
+        <Link to="/" className="flex items-center">
           <span className="font-mono text-h2 font-bold text-white light-theme:text-black dot-matrix">
             MusicGift
           </span>

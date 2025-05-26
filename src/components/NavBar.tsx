@@ -1,4 +1,3 @@
-
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
-
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,14 +15,13 @@ const NavBar = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  
   return <>
       <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
         <div className="container mx-auto flex h-20 items-center px-4 sm:px-6">
-          {/* Logo positioned on the left */}
-          <div className="flex-shrink-0 mr-8">
+          {/* Logo positioned on the left and moved down significantly */}
+          <div className="flex-shrink-0 mr-8 mt-32 md:mt-40">
             <Link to="/" className="block">
-              <img src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" alt="MusicGift Logo" className="w-16 h-16 md:w-20 md:h-20 object-scale-down" />
+              <img src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" alt="MusicGift Logo" className="w-96 h-96 md:w-[30rem] md:h-[30rem] object-scale-down" />
             </Link>
           </div>
 
@@ -146,5 +143,4 @@ const NavBar = () => {
       </header>
     </>;
 };
-
 export default NavBar;

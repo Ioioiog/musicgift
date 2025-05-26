@@ -10,7 +10,7 @@ const Layout = () => {
   
   return (
     <motion.div 
-      className={`flex flex-col min-h-screen font-lato transition-colors duration-300 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}
+      className={`flex flex-col min-h-screen font-lato transition-colors duration-300 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-gray-900'}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

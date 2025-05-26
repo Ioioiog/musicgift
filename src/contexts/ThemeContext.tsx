@@ -14,13 +14,12 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem('theme');
-    // Check for system preference if no theme is saved
+    // Default to light theme for the new design
     if (!savedTheme) {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return prefersDark ? 'dark' : 'light';
+      return 'light';
     }
-    // Return saved theme if valid, otherwise default to dark
-    return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
+    // Return saved theme if valid, otherwise default to light
+    return (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'light';
   });
 
   // Apply theme class to document element

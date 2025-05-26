@@ -16,7 +16,7 @@ const Layout = () => {
       transition={{ duration: 0.5 }}
     >
       <NavBar />
-      <main className="flex-grow pt-20 md:pt-24">
+      <main className="flex-grow pt-24 md:pt-28">
         <Outlet />
       </main>
       <Footer />

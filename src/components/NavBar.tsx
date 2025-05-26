@@ -1,3 +1,4 @@
+
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -21,23 +22,21 @@ const NavBar = () => {
   
   return (
     <>
-      {/* Logo positioned to extend beyond navbar */}
-      <div className="fixed top-0 left-8 z-50">
-        <Link to="/" className="block">
-          <img 
-            src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" 
-            alt="MusicGift Logo" 
-            className="w-80 h-80 md:w-96 md:h-96 object-contain"
-          />
-        </Link>
-      </div>
-
       <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
-        <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
-          {/* Empty space for logo */}
-          <div className="w-80 md:w-96"></div>
+        <div className="container mx-auto flex h-20 items-center px-4 sm:px-6">
+          {/* Logo positioned on the left */}
+          <div className="flex-shrink-0 mr-8">
+            <Link to="/" className="block">
+              <img 
+                src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" 
+                alt="MusicGift Logo" 
+                className="w-64 h-64 md:w-80 md:h-80 object-contain"
+              />
+            </Link>
+          </div>
 
-          <NavigationMenu className="mx-auto hidden md:flex">
+          {/* Navigation menu positioned to the right of logo */}
+          <NavigationMenu className="hidden md:flex flex-1">
             <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent text-white hover:bg-black light-theme:text-black light-theme:hover:bg-white")}>
@@ -82,7 +81,8 @@ const NavBar = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="flex items-center space-x-4">
+          {/* Right side items */}
+          <div className="flex items-center space-x-4 ml-auto">
             <ThemeToggle />
             
             <div className="hidden md:flex items-center space-x-3">

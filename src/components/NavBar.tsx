@@ -1,4 +1,3 @@
-
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -28,7 +27,7 @@ const NavBar = () => {
           <img 
             src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" 
             alt="MusicGift Logo" 
-            className="w-32 h-32 md:w-40 md:h-40 object-contain"
+            className="w-80 h-80 md:w-96 md:h-96 object-contain"
           />
         </Link>
       </div>
@@ -36,7 +35,7 @@ const NavBar = () => {
       <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
         <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
           {/* Empty space for logo */}
-          <div className="w-32 md:w-40"></div>
+          <div className="w-80 md:w-96"></div>
 
           <NavigationMenu className="mx-auto hidden md:flex">
             <NavigationMenuList className="gap-1">

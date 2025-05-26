@@ -1,3 +1,4 @@
+
 import { Home, Info, Package, FileText, HelpCircle, Facebook, Instagram, Twitter, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -6,22 +7,31 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const handleOrderClick = () => {
     navigate("/comanda");
   };
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  return <>
+  
+  return (
+    <>
       <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
         <div className="container mx-auto flex h-20 items-center px-4 sm:px-6">
-          {/* Logo positioned on the left and moved down significantly */}
-          <div className="flex-shrink-0 mr-8 mt-32 md:mt-40">
+          {/* Logo positioned on the left */}
+          <div className="flex-shrink-0 mr-8">
             <Link to="/" className="block">
-              <img src="/lovable-uploads/3ae2089b-c8d7-4544-97ca-c75da01471f1.png" alt="MusicGift Logo" className="w-96 h-96 md:w-[30rem] md:h-[30rem] object-scale-down" />
+              <img 
+                src="/lovable-uploads/caaeae8f-3eb2-4d46-b09d-247d41df883a.png" 
+                alt="MusicGift Logo" 
+                className="w-16 h-16 md:w-20 md:h-20 object-contain" 
+              />
             </Link>
           </div>
 
@@ -98,7 +108,8 @@ const NavBar = () => {
         </div>
         
         {/* Mobile menu */}
-        {mobileMenuOpen && <div className="md:hidden bg-black border-t border-border/50 light-theme:bg-white light-theme:border-gray-200/50">
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-black border-t border-border/50 light-theme:bg-white light-theme:border-gray-200/50">
             <div className="container py-4 px-4 space-y-3">
               <Link to="/" className="flex items-center py-2 text-white hover:text-primary light-theme:text-black light-theme:hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
                 <Home className="w-5 h-5 mr-3" /> Acasă
@@ -133,14 +144,17 @@ const NavBar = () => {
               </div>
               
               <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-white rounded-full" onClick={() => {
-            handleOrderClick();
-            setMobileMenuOpen(false);
-          }}>
+                handleOrderClick();
+                setMobileMenuOpen(false);
+              }}>
                 Comandă Acum
               </Button>
             </div>
-          </div>}
+          </div>
+        )}
       </header>
-    </>;
+    </>
+  );
 };
+
 export default NavBar;

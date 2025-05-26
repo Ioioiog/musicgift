@@ -6,16 +6,21 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
+
 const NavBar = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
   const handleOrderClick = () => {
     navigate("/comanda");
   };
+  
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  return <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
+  
+  return (
+    <header className="fixed top-0 z-40 w-full bg-black/80 backdrop-blur-sm border-b border-border/50 light-theme:bg-white/80 light-theme:border-gray-200/50">
       <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 justify-between">
         <Link to="/" className="flex items-center">
           <span className="font-mono text-h2 font-bold text-white light-theme:text-black dot-matrix">
@@ -83,7 +88,7 @@ const NavBar = () => {
             </a>
           </div>
           
-          <Button size="sm" onClick={handleOrderClick} className="hidden md:flex text-white rounded-full bg-purple-800 hover:bg-purple-700">
+          <Button size="sm" onClick={handleOrderClick} className="hidden md:flex text-white rounded-full bg-orange-500 hover:bg-orange-400">
             Comandă Acum
           </Button>
           
@@ -94,7 +99,8 @@ const NavBar = () => {
       </div>
       
       {/* Mobile menu */}
-      {mobileMenuOpen && <div className="md:hidden bg-black border-t border-border/50 light-theme:bg-white light-theme:border-gray-200/50">
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-black border-t border-border/50 light-theme:bg-white light-theme:border-gray-200/50">
           <div className="container py-4 px-4 space-y-3">
             <Link to="/" className="flex items-center py-2 text-white hover:text-primary light-theme:text-black light-theme:hover:text-primary" onClick={() => setMobileMenuOpen(false)}>
               <Home className="w-5 h-5 mr-3" /> Acasă
@@ -129,13 +135,16 @@ const NavBar = () => {
             </div>
             
             <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-white rounded-full" onClick={() => {
-          handleOrderClick();
-          setMobileMenuOpen(false);
-        }}>
+              handleOrderClick();
+              setMobileMenuOpen(false);
+            }}>
               Comandă Acum
             </Button>
           </div>
-        </div>}
-    </header>;
+        </div>
+      )}
+    </header>
+  );
 };
+
 export default NavBar;
